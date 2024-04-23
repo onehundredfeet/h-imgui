@@ -17,15 +17,26 @@ project(imgui)
 # you can reference the paths defined here to help make your cmake code more portable
 include(${PATH_TO_IDL}/h-idl-defines.cmake)
 
+if (NOT NETIMGUI_ROOT) 
+set(NETIMGUI_ROOT "ext/netImgui")
+endif()
+
+if (NOT IMGUI_ROOT) 
+set(IMGUI_ROOT "ext/imgui")
+endif()
+
 
 set( PROJECT_ADDITIONAL_SOURCES 
-
+${IMGUI_ROOT}/imgui.cpp
+${IMGUI_ROOT}/imgui_draw.cpp
+${IMGUI_ROOT}/imgui_widgets.cpp
+${IMGUI_ROOT}/imgui_tables.cpp
 )
 
 
 set (PROJECT_ADDITIONAL_INCLUDES
-
-
+${NETIMGUI_ROOT}/Code/Client
+${IMGUI_ROOT}
 )
 
 if (APPLE)

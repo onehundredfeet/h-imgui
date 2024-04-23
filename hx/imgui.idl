@@ -1,6 +1,1 @@
 
-[Internal="himgui::System"]
-interface System {
-	void System();
-
-};
