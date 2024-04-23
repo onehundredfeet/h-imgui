@@ -1,0 +1,6 @@
+[submodule "ext/netImgui"]
+	path = ext/netImgui
+	url = https://github.com/sammyfreg/netImgui.git
+[submodule "ext/imgui"]
+	path = ext/imgui
+	url = https://github.com/ocornut/imgui.git
