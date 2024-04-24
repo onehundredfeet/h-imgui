@@ -14,7 +14,7 @@ class Build extends idl.BuildBase {
 		outputDir: "src",
 		includeCode: null,
 		autoGC: true,
-		defaultConfig: "Release",
+		defaultConfig: "Debug",
 		architecture: ArchAll
 	};
 

@@ -5,7 +5,7 @@
     "tags"         :  [""],
     "description"  :  "Imgui",
     "version"      :  "0.1.0",
-    "classPath"    :  "lib",
+    "classPath"    :  "hx",
     "releasenote"  :  "Initial work",
     "contributors" :  ["onehundredfeet"],
     "dependencies" :  {}

@@ -25,6 +25,10 @@ if (NOT IMGUI_ROOT)
 set(IMGUI_ROOT "ext/imgui")
 endif()
 
+if (NOT CPPTRACE_ROOT) 
+set(CPPTRACE_ROOT "ext/cpptrace")
+endif()
+
 
 set( PROJECT_ADDITIONAL_SOURCES 
 ${IMGUI_ROOT}/imgui.cpp
@@ -37,6 +41,7 @@ ${IMGUI_ROOT}/imgui_tables.cpp
 set (PROJECT_ADDITIONAL_INCLUDES
 ${NETIMGUI_ROOT}/Code/Client
 ${IMGUI_ROOT}
+${CPPTRACE_ROOT}/include
 )
 
 if (APPLE)
@@ -51,11 +56,15 @@ endif()
 set (PROJECT_ADDITIONAL_LIB_DIRS
 )
 
+add_subdirectory(ext/cpptrace)
 
 set(PROJECT_ADDITIONAL_LIBS
+cpptrace-lib
 )
 
-
+set (PROJECT_ADDITIONAL_COMPILE_DEFINITIONS
+CPPTRACE_STATIC_DEFINE
+)
 include(${PATH_TO_IDL}/h-idl-configure.cmake)
 
 

@@ -1,3 +1,6 @@
 src/idl_hl.cpp
 src/hl-idl-helpers.hpp
 build
+bin/test.hl
+imgui.hdll.dSYM
+imgui.hdll

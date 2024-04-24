@@ -1,8 +1,42 @@
+typedef ImguiString VoidPtr;
 
+interface StringCache {
+	void StringCache();
+	ImguiString cache( String string );
+	void free( ImguiString string );
+};
+
+
+interface StringBuffer {
+	void StringBuffer(int bufferSize);
+	ImguiString cache(String string);
+	void reset();
+};
+
+interface ImGuiContext{
+
+};
+
+[Internal="HImGuiIO"]
+interface ImGuiIO {
+ 	void addFontDefault();
+    void buildFonts();
+    void setFontTexID(VoidPtr id);
+    void setDisplaySize(float x, float y);
+};
+
+[NoDelete]
+interface ImGui {
+	[Static, Internal="ImGui::CreateContext"] ImGuiContext createContext();
+	[Static, Internal="HImGuiIO::getIO"] ImGuiIO getIO();
+	[Static, Internal="ImGui::StyleColorsDark"] void styleColorsDark();
+	[Static, Internal="ImGui::DestroyContext"] void destroyContext(ImGuiContext context);
+	
+};
 
 [NoDelete]
 interface NetImgui {
-	[Static, Internal="NetImgui::Startup"] void startup();
+	[Static, Internal="NetImgui::Startup"] bool startup();
 	[Static, Internal="NetImgui::ConnectToApp"] void connectToApp(String clientName, String serverHost, int serverPort);
 	[Static, Internal="NetImgui::IsConnected"] bool isConnected();
 	[Static, Internal="NetImgui::IsConnectionPending"] bool isConnectionPending();
@@ -11,5 +45,6 @@ interface NetImgui {
 
 	[Static, Internal="NetImgui::NewFrame"] bool newFrame();
 	[Static, Internal="NetImgui::EndFrame"] void endFrame();
-
+	[Static, Internal="NetImgui::Shutdown"] void shutdown();
+	[Static,Internal="NetImguiDebug"] void enableDebug();
 };
