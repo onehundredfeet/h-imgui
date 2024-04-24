@@ -51,7 +51,7 @@ class StringBuffer {
         _writeHead = 0;
     }
 
-    void *cache(const char* string) {
+    void *append(const char* string) {
         int len = strlen(string);
         if (_writeHead + len >= _buffer.size()) {
             return nullptr;
@@ -62,6 +62,11 @@ class StringBuffer {
         _buffer[_writeHead] = '\0';
         _writeHead++;
         return (void *)result;
+    }
+
+    void *set(const char* string) {
+        reset();
+        return append(string);
     }
 };
  
@@ -113,7 +118,44 @@ class StringBuffer {
     }
  };
 
+class ImGuiColor {
+    public:
+    float r;
+    float g;
+    float b;
+    float a;
 
+    bool colorEdit4(void * text, int flags = 0) {
+        return ImGui::ColorEdit4((const char *)text, &r, flags);
+    }
+};
+
+class HImGui {
+
+    public:
+    static void text(void * text) {
+        ImGui::Text("%s", (const char *)text);
+    }
+    static bool button(void * text, float width = 0.0, float height = 0.0) {
+        return ImGui::Button((const char *)text, ImVec2(width, height));
+    }
+    static void textColored(float r, float g, float b, float a, void * text) {
+        ImGui::TextColored(ImVec4(r, g, b, a), "%s", (const char *)text);
+    }
+    static void setNextWindowPos(float x, float y, int flags = ImGuiCond_Once) {
+        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+        const ImVec2 base_pos = viewport->Pos;
+
+        ImGui::SetNextWindowPos( ImVec2(base_pos.x + x, base_pos.y + y), flags);
+    }
+    static void setNextWindowSize(float x, float y, int flags = ImGuiCond_Once) {
+        ImGui::SetNextWindowSize(ImVec2(x, y), flags);
+    }
+    static bool begin(void *name, int flags = 0) {
+       return ImGui::Begin((char *)name, nullptr, flags );
+    }
+
+};
 
 void signalHandler(int inSignal) {
     if (inSignal == SIGSEGV) { // Segmentation fault

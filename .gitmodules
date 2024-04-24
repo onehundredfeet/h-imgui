@@ -7,3 +7,18 @@
 [submodule "ext/cpptrace"]
 	path = ext/cpptrace
 	url = https://github.com/jeremy-rifkin/cpptrace.git
+[submodule "ext/implot"]
+	path = ext/implot
+	url = https://github.com/epezent/implot.git
+[submodule "ext/imgui-node-editor"]
+	path = ext/imgui-node-editor
+	url = https://github.com/thedmd/imgui-node-editor
+[submodule "ext/imgui-knobs"]
+	path = ext/imgui-knobs
+	url = https://github.com/altschuler/imgui-knobs.git
+[submodule "ext/imgui_toggle"]
+	path = ext/imgui_toggle
+	url = https://github.com/cmdwtf/imgui_toggle.git
+[submodule "ext/imgui_tex_inspect"]
+	path = ext/imgui_tex_inspect
+	url = https://github.com/andyborrell/imgui_tex_inspect.git

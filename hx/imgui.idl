@@ -1,5 +1,69 @@
 typedef ImguiString VoidPtr;
 
+[Prefix="ImGuiColorEditFlags_"]
+enum ImGuiColorEditFlags
+{
+"None",
+"NoAlpha",
+"NoPicker",
+"NoOptions",
+"NoSmallPreview",
+"NoInputs",
+"NoTooltip",
+"NoLabel",
+"NoSidePreview",
+"NoDragDrop",
+"NoBorder",
+"AlphaBar",
+"AlphaPreview",
+"AlphaPreviewHalf",
+"HDR",
+"DisplayRGB",
+"DisplayHSV",
+"DisplayHex",
+"Uint8",
+"Float",
+"PickerHueBar",
+"PickerHueWheel",
+"InputRGB",
+"InputHSV",
+"DefaultOptions_",
+"DisplayMask_",
+"DataTypeMask_",
+"PickerMask_",
+"InputMask_"	
+};
+
+[Prefix="ImGuiWindowFlags_"]
+enum ImGuiWindowFlags
+{
+	"None",
+	"NoTitleBar",
+	"NoResize",
+	"NoMove",
+	"NoScrollbar",
+	"NoScrollWithMouse",
+	"NoCollapse",
+	"AlwaysAutoResize",
+	"NoBackground",
+	"NoSavedSettings",
+	"NoMouseInputs",
+	"MenuBar",
+	"HorizontalScrollbar",
+	"NoFocusOnAppearing",
+	"NoBringToFrontOnFocus",
+	"AlwaysVerticalScrollbar",
+	"AlwaysHorizontalScrollbar",
+	"NoNavInputs",
+	"NoNavFocus",
+	"UnsavedDocument",
+	"NoNav",
+	"NoDecoration",
+	"NoInputs",
+	"NoDocking"
+
+};
+
 interface StringCache {
 	void StringCache();
 	ImguiString cache( String string );
@@ -9,12 +73,23 @@ interface StringCache {
 
 interface StringBuffer {
 	void StringBuffer(int bufferSize);
-	ImguiString cache(String string);
+	ImguiString append(String string);
+	ImguiString set(String string);
 	void reset();
 };
 
 interface ImGuiContext{
 
+};
+
+interface ImGuiColor {
+	void ImGuiColor();
+	attribute float r;
+	attribute float g;
+	attribute float b;
+	attribute float a;
+
+	bool colorEdit4(ImguiString text);
 };
 
 [Internal="HImGuiIO"]
@@ -31,7 +106,30 @@ interface ImGui {
 	[Static, Internal="HImGuiIO::getIO"] ImGuiIO getIO();
 	[Static, Internal="ImGui::StyleColorsDark"] void styleColorsDark();
 	[Static, Internal="ImGui::DestroyContext"] void destroyContext(ImGuiContext context);
+
+	[Static, Internal="ImGui::Separator"] void separator();
+	[Static, Internal="ImGui::ColorEdit4"] bool colorEdit4([Cast="char*"] ImguiString name, float *colors, int flags);
+
+	[Static, Internal="HImGui::text"] void text(ImguiString text);
+	[Static, Internal="ImGui::TextUnformatted"] void textUnformatted([Cast="char*"]ImguiString text);
+	[Static, Internal="HImGui::textColored"] void textColored(float r, float g, float b, float a, ImguiString text);
+	[Static, Internal="HImGui::button"] bool button(ImguiString label, optional float width, optional float height);
+	[Static, Internal="ImGui::NewLine"] void newLine();
+
+	[Static, Internal="HImGui::begin"] bool begin(ImguiString label, optional int flags);
+	[Static, Internal="HImGui::setNextWindowPos"] void setNextWindowPos(float x, float y, optional int flags);
+	[Static, Internal="HImGui::setNextWindowSize"] void setNextWindowSize(float x, float y, optional int flags);
+	[Static, Internal="ImGui::End"] void end();
 	
+	[Static, Internal="ImGui::BeginMenuBar"] bool beginMenuBar();
+	[Static, Internal="ImGui::EndMenuBar"] void endMenuBar();
+	[Static, Internal="ImGui::BeginMainMenuBar"] bool beginMainMenuBar();
+	[Static, Internal="ImGui::EndMainMenuBar"] void endMainMenuBar();
+	[Static, Internal="ImGui::BeginMenu"] bool beginMenu([Cast="char*"]ImguiString label);
+	[Static, Internal="ImGui::EndMenu"] void endMenu();
+
+
+	[Static, Internal="ImGui::PlotLines"] void plotLines([Cast="char*"]ImguiString label, float *samples, int numSamples);
 };
 
 [NoDelete]
