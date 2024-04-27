@@ -216,6 +216,11 @@ interface ImGui {
 	[Static, Internal="ImGui::BeginMenu"] bool beginMenu([Cast="char*"]ImGuiString label);
 	[Static, Internal="ImGui::EndMenu"] void endMenu();
 
+	[Static, Internal="ImGui::BeginTabBar"] bool beginTabBar([Cast="char*"]ImGuiString label, optional int flags);
+	[Static, Internal="ImGui::EndTabBar"] void endTabBar();
+	[Static, Internal="ImGui::BeginTabItem"] bool beginTabItem([Cast="char*"]ImGuiString label);
+	[Static, Internal="ImGui::EndTabItem"] void endTabItem();
+
 
 	[Static, Internal="ImGui::PlotLines"] void plotLines([Cast="char*"]ImGuiString label, float *samples, int numSamples);
 };
