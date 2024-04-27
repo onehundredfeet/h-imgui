@@ -1,37 +1,37 @@
-typedef ImguiString VoidPtr;
+typedef ImGuiString VoidPtr;
 
 [Prefix="ImGuiColorEditFlags_"]
 enum ImGuiColorEditFlags
 {
-"None",
-"NoAlpha",
-"NoPicker",
-"NoOptions",
-"NoSmallPreview",
-"NoInputs",
-"NoTooltip",
-"NoLabel",
-"NoSidePreview",
-"NoDragDrop",
-"NoBorder",
-"AlphaBar",
-"AlphaPreview",
-"AlphaPreviewHalf",
-"HDR",
-"DisplayRGB",
-"DisplayHSV",
-"DisplayHex",
-"Uint8",
-"Float",
-"PickerHueBar",
-"PickerHueWheel",
-"InputRGB",
-"InputHSV",
-"DefaultOptions_",
-"DisplayMask_",
-"DataTypeMask_",
-"PickerMask_",
-"InputMask_"	
+	"None",
+	"NoAlpha",
+	"NoPicker",
+	"NoOptions",
+	"NoSmallPreview",
+	"NoInputs",
+	"NoTooltip",
+	"NoLabel",
+	"NoSidePreview",
+	"NoDragDrop",
+	"NoBorder",
+	"AlphaBar",
+	"AlphaPreview",
+	"AlphaPreviewHalf",
+	"HDR",
+	"DisplayRGB",
+	"DisplayHSV",
+	"DisplayHex",
+	"Uint8",
+	"Float",
+	"PickerHueBar",
+	"PickerHueWheel",
+	"InputRGB",
+	"InputHSV",
+	"DefaultOptions_",
+	"DisplayMask_",
+	"DataTypeMask_",
+	"PickerMask_",
+	"InputMask_"	
 };
 
 [Prefix="ImGuiWindowFlags_"]
@@ -61,25 +61,110 @@ enum ImGuiWindowFlags
 	"NoDecoration",
 	"NoInputs",
 	"NoDocking"
-
 };
+
+[Prefix="ImGuiConfigFlags_"]
+enum ImGuiConfigFlags
+{
+	"None",
+	"NavEnableKeyboard",
+	"NavEnableGamepad",
+	"NavEnableSetMousePos",
+	"NavNoCaptureKeyboard",
+	"NoMouse",
+	"NoMouseCursorChange",
+	"DockingEnable",
+	"ViewportsEnable",
+	"DpiEnableScaleViewports",
+	"DpiEnableScaleFonts",
+	"IsSRGB",
+	"IsTouchScreen"
+};
+
+
+// Plot styling variables.
+[Prefix="ImPlotStyleVar_"]
+enum ImPlotStyleVar {
+    "LineWeight",         
+    "Marker",             
+    "MarkerSize",         
+    "MarkerWeight",       
+    "FillAlpha",          
+    "ErrorBarSize",       
+    "ErrorBarWeight",     
+    "DigitalBitHeight",   
+    "DigitalBitGap",      
+    "PlotBorderSize",    
+    "MinorAlpha",        
+    "MajorTickLen",      
+    "MinorTickLen",      
+    "MajorTickSize",     
+    "MinorTickSize",     
+    "MajorGridSize",     
+    "MinorGridSize",     
+    "PlotPadding",        
+    "LabelPadding",       
+    "LegendPadding",     
+    "LegendInnerPadding",
+    "LegendSpacing",     
+    "MousePosPadding",   
+    "AnnotationPadding", 
+    "FitPadding",         
+    "PlotDefaultSize",    
+    "PlotMinSize"       
+};
+
 
 interface StringCache {
 	void StringCache();
-	ImguiString cache( String string );
-	void free( ImguiString string );
+	ImGuiString cache( String string );
+	void free( ImGuiString string );
 };
-
 
 interface StringBuffer {
 	void StringBuffer(int bufferSize);
-	ImguiString append(String string);
-	ImguiString set(String string);
+	ImGuiString append(String string);
+	ImGuiString set(String string);
 	void reset();
 };
 
 interface ImGuiContext{
 
+};
+
+[NoDelete]
+interface ImPlotContext {
+
+};
+
+[NoDelete]
+interface ImPlot {
+	[Static, Internal="ImPlot::BeginPlot"] bool beginPlot([Cast="char*"]ImGuiString text);
+	[Static, Internal="ImPlot::EndPlot"] void endPlot();
+	
+	[Static, Internal="ImPlot::PlotBars"] void plotBarsS([Cast="char*"]ImGuiString label, float *bar_data, int data_count);
+	[Static, Internal="ImPlot::PlotBars"] void plotBarsF([Cast="char*"]ImGuiString label, double *bar_data, int data_count);
+	[Static, Internal="ImPlot::PlotBars"] void plotBarsI([Cast="char*"]ImGuiString label, int *bar_data, int data_count);
+
+	[Static, Internal="ImPlot::PlotLine"] void plotLineS([Cast="char*"]ImGuiString label, float *data, int data_count, optional double xstart, optional int flags, optional int offset);
+	[Static, Internal="ImPlot::PlotLine"] void plotLineXYS([Cast="char*"]ImGuiString label, float *data_x, float *data_y, int data_count);
+	[Static, Internal="ImPlot::PlotLine"] void plotLineF([Cast="char*"]ImGuiString label, double *data, int data_count, optional double xstart, optional int flags, optional int offset);
+	[Static, Internal="ImPlot::PlotLine"] void plotLineXYF([Cast="char*"]ImGuiString label, double *data_x, double *data_y, int data_count);
+
+	[Static, Internal="ImPlot::SetupAxes"]  void setupAxes([Cast="char*"]ImGuiString horizontal, [Cast="char*"]ImGuiString vertical);
+	[Static, Internal="ImPlot::SetupAxesLimits"]  void setupAxesLimits(double x_min, double x_max, double y_min, double y_max);
+
+	[Static, Internal="ImPlot::PlotShaded"]  void plotShadedS([Cast="char*"]ImGuiString label, float *values, int count, optional double y_ref, double xscale, double x0, optional int flags, optional int offset, optional int stride);
+	[Static, Internal="ImPlot::PlotShaded"]  void plotShadedXYS([Cast="char*"]ImGuiString label, float *xs, float *y2, int count, optional double y_ref, optional int flags, optional int offset);
+	[Static, Internal="ImPlot::PlotShaded"]  void plotShadedF([Cast="char*"]ImGuiString label, double *values, int count, optional double y_ref, optional double xscale, optional double x0, optional int flags, optional int offset, optional int stride);
+	[Static, Internal="ImPlot::PlotShaded"]  void plotShadedXYF([Cast="char*"]ImGuiString label, double *xs, double *y2, int count, optional double y_ref, optional int flags, optional int offset);
+	[Static, Internal="ImPlot::PlotShaded"]  void plotShadedXYYF([Cast="char*"]ImGuiString label, double *xs, double *y1, double *y2, int count, optional int flags, optional int offset);
+
+	[Static, Internal="ImPlot::PushStyleVar"]  void pushStyleVar(ImPlotStyleVar styleVar, float value);
+	[Static, Internal="ImPlot::PopStyleVar"]  void popStyleVar(ImPlotStyleVar styleVar);
+
+	[Static, Const, Internal="ImPlot::CreateContext"] ImPlotContext createContext();
+	[Static, Internal="ImPlot::DestroyContext"] void destroyContext(optional ImPlotContext context);
 };
 
 interface ImGuiColor {
@@ -89,7 +174,7 @@ interface ImGuiColor {
 	attribute float b;
 	attribute float a;
 
-	bool colorEdit4(ImguiString text);
+	bool colorEdit4(ImGuiString text);
 };
 
 [Internal="HImGuiIO"]
@@ -98,6 +183,9 @@ interface ImGuiIO {
     void buildFonts();
     void setFontTexID(VoidPtr id);
     void setDisplaySize(float x, float y);
+	void setConfigFlags( int flags );
+	void setConfigFlag(ImGuiConfigFlags flag);
+	int getConfigFlags();
 };
 
 [NoDelete]
@@ -108,15 +196,15 @@ interface ImGui {
 	[Static, Internal="ImGui::DestroyContext"] void destroyContext(ImGuiContext context);
 
 	[Static, Internal="ImGui::Separator"] void separator();
-	[Static, Internal="ImGui::ColorEdit4"] bool colorEdit4([Cast="char*"] ImguiString name, float *colors, int flags);
+	[Static, Internal="ImGui::ColorEdit4"] bool colorEdit4([Cast="char*"] ImGuiString name, float *colors, int flags);
 
-	[Static, Internal="HImGui::text"] void text(ImguiString text);
-	[Static, Internal="ImGui::TextUnformatted"] void textUnformatted([Cast="char*"]ImguiString text);
-	[Static, Internal="HImGui::textColored"] void textColored(float r, float g, float b, float a, ImguiString text);
-	[Static, Internal="HImGui::button"] bool button(ImguiString label, optional float width, optional float height);
+	[Static, Internal="HImGui::text"] void text(ImGuiString text);
+	[Static, Internal="ImGui::TextUnformatted"] void textUnformatted([Cast="char*"]ImGuiString text);
+	[Static, Internal="HImGui::textColored"] void textColored(float r, float g, float b, float a, ImGuiString text);
+	[Static, Internal="HImGui::button"] bool button(ImGuiString label, optional float width, optional float height);
 	[Static, Internal="ImGui::NewLine"] void newLine();
 
-	[Static, Internal="HImGui::begin"] bool begin(ImguiString label, optional int flags);
+	[Static, Internal="HImGui::begin"] bool begin(ImGuiString label, optional int flags);
 	[Static, Internal="HImGui::setNextWindowPos"] void setNextWindowPos(float x, float y, optional int flags);
 	[Static, Internal="HImGui::setNextWindowSize"] void setNextWindowSize(float x, float y, optional int flags);
 	[Static, Internal="ImGui::End"] void end();
@@ -125,11 +213,11 @@ interface ImGui {
 	[Static, Internal="ImGui::EndMenuBar"] void endMenuBar();
 	[Static, Internal="ImGui::BeginMainMenuBar"] bool beginMainMenuBar();
 	[Static, Internal="ImGui::EndMainMenuBar"] void endMainMenuBar();
-	[Static, Internal="ImGui::BeginMenu"] bool beginMenu([Cast="char*"]ImguiString label);
+	[Static, Internal="ImGui::BeginMenu"] bool beginMenu([Cast="char*"]ImGuiString label);
 	[Static, Internal="ImGui::EndMenu"] void endMenu();
 
 
-	[Static, Internal="ImGui::PlotLines"] void plotLines([Cast="char*"]ImguiString label, float *samples, int numSamples);
+	[Static, Internal="ImGui::PlotLines"] void plotLines([Cast="char*"]ImGuiString label, float *samples, int numSamples);
 };
 
 [NoDelete]

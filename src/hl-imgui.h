@@ -6,13 +6,14 @@
 #define NETIMGUI_IMPLEMENTATION 
 #include <NetImgui_Api.h>
 #include <imgui.h>
+#include <implot.h>
 
 #include <string>
 #include <vector>
 #include <set>
 #include <iostream>
 #include <csignal>
-#include <cpptrace/cpptrace.hpp>
+// #include <cpptrace/cpptrace.hpp>
 
 class StringCache {
     std::set<char*> _cache;
@@ -116,6 +117,16 @@ class StringBuffer {
     static HImGuiIO *getIO() {
         return new HImGuiIO();
     }
+
+    void setConfigFlags(int flags) {
+        _io.ConfigFlags = flags;
+    }
+    void setConfigFlag(int flag) {
+        _io.ConfigFlags |= flag;
+    }
+    int getConfigFlags() {
+        return _io.ConfigFlags;
+    }
  };
 
 class ImGuiColor {
@@ -157,24 +168,24 @@ class HImGui {
 
 };
 
-void signalHandler(int inSignal) {
-    if (inSignal == SIGSEGV) { // Segmentation fault
-        // Capture stack trace
-        std::cerr << "Segmentation fault captured:\n";
-       cpptrace::generate_trace(2).print_with_snippets();
-     std::cerr << "Done:\n";
-        // You can also log additional information or take other actions here
-    }
+// void signalHandler(int inSignal) {
+//     if (inSignal == SIGSEGV) { // Segmentation fault
+//         // Capture stack trace
+//         std::cerr << "Segmentation fault captured:\n";
+//        cpptrace::generate_trace(2).print_with_snippets();
+//      std::cerr << "Done:\n";
+//         // You can also log additional information or take other actions here
+//     }
 
-    // You might want to handle other signals similarly
+//     // You might want to handle other signals similarly
 
-    // Re-raise the signal to the default handler
-    signal(inSignal, SIG_DFL);
-    raise(inSignal);
-}
+//     // Re-raise the signal to the default handler
+//     signal(inSignal, SIG_DFL);
+//     raise(inSignal);
+// }
 
 void NetImguiDebug() {
-    ::signal(SIGSEGV, signalHandler);
+//     ::signal(SIGSEGV, signalHandler);
 }
 
 #endif

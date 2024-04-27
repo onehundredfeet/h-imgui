@@ -29,19 +29,25 @@ if (NOT CPPTRACE_ROOT)
 set(CPPTRACE_ROOT "ext/cpptrace")
 endif()
 
+if (NOT IMPLOT_ROOT) 
+set(IMPLOT_ROOT "ext/implot")
+endif()
 
 set( PROJECT_ADDITIONAL_SOURCES 
 ${IMGUI_ROOT}/imgui.cpp
 ${IMGUI_ROOT}/imgui_draw.cpp
 ${IMGUI_ROOT}/imgui_widgets.cpp
 ${IMGUI_ROOT}/imgui_tables.cpp
+${IMPLOT_ROOT}/implot.cpp
+${IMPLOT_ROOT}/implot_items.cpp
 )
 
 
 set (PROJECT_ADDITIONAL_INCLUDES
 ${NETIMGUI_ROOT}/Code/Client
 ${IMGUI_ROOT}
-${CPPTRACE_ROOT}/include
+${IMPLOT_ROOT}
+#${CPPTRACE_ROOT}/include
 )
 
 if (APPLE)
@@ -56,10 +62,10 @@ endif()
 set (PROJECT_ADDITIONAL_LIB_DIRS
 )
 
-add_subdirectory(ext/cpptrace)
+#add_subdirectory(ext/cpptrace)
 
 set(PROJECT_ADDITIONAL_LIBS
-cpptrace-lib
+#cpptrace-lib
 )
 
 set (PROJECT_ADDITIONAL_COMPILE_DEFINITIONS

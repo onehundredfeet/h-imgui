@@ -22,3 +22,6 @@
 [submodule "ext/imgui_tex_inspect"]
 	path = ext/imgui_tex_inspect
 	url = https://github.com/andyborrell/imgui_tex_inspect.git
+[submodule "ext/tracy"]
+	path = ext/tracy
+	url = https://github.com/wolfpld/tracy.git
