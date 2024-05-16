@@ -47,7 +47,7 @@ set (PROJECT_ADDITIONAL_INCLUDES
 ${NETIMGUI_ROOT}/Code/Client
 ${IMGUI_ROOT}
 ${IMPLOT_ROOT}
-#${CPPTRACE_ROOT}/include
+${CPPTRACE_ROOT}/include
 )
 
 if (APPLE)
@@ -62,10 +62,10 @@ endif()
 set (PROJECT_ADDITIONAL_LIB_DIRS
 )
 
-#add_subdirectory(ext/cpptrace)
+add_subdirectory(ext/cpptrace)
 
 set(PROJECT_ADDITIONAL_LIBS
-#cpptrace-lib
+cpptrace-lib
 )
 
 set (PROJECT_ADDITIONAL_COMPILE_DEFINITIONS

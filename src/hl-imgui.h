@@ -13,7 +13,12 @@
 #include <set>
 #include <iostream>
 #include <csignal>
-// #include <cpptrace/cpptrace.hpp>
+
+#define IMGUI_TRACE
+
+#ifdef IMGUI_TRACE
+#include <cpptrace/cpptrace.hpp>
+#endif
 
 class StringCache {
     std::set<char*> _cache;
@@ -166,26 +171,34 @@ class HImGui {
        return ImGui::Begin((char *)name, nullptr, flags );
     }
 
+    static void setTooltip(void * text) {
+        ImGui::SetTooltip("%s", (const char *)text);
+    }
+
 };
 
-// void signalHandler(int inSignal) {
-//     if (inSignal == SIGSEGV) { // Segmentation fault
-//         // Capture stack trace
-//         std::cerr << "Segmentation fault captured:\n";
-//        cpptrace::generate_trace(2).print_with_snippets();
-//      std::cerr << "Done:\n";
-//         // You can also log additional information or take other actions here
-//     }
+#ifdef IMGUI_TRACE
+void signalHandler(int inSignal) {
+    if (inSignal == SIGSEGV) { // Segmentation fault
+        // Capture stack trace
+        std::cerr << "Segmentation fault captured:\n";
+       cpptrace::generate_trace(2).print_with_snippets();
+     std::cerr << "Done:\n";
+        // You can also log additional information or take other actions here
+    }
 
-//     // You might want to handle other signals similarly
+    // You might want to handle other signals similarly
 
-//     // Re-raise the signal to the default handler
-//     signal(inSignal, SIG_DFL);
-//     raise(inSignal);
-// }
+    // Re-raise the signal to the default handler
+    signal(inSignal, SIG_DFL);
+    raise(inSignal);
+}
+#endif
 
 void NetImguiDebug() {
-//     ::signal(SIGSEGV, signalHandler);
+#ifdef IMGUI_TRACE
+     ::signal(SIGSEGV, signalHandler);
+#endif
 }
 
 #endif

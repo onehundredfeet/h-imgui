@@ -188,6 +188,8 @@ interface ImGuiIO {
 	int getConfigFlags();
 };
 
+typedef ImGuiID uint;
+
 [NoDelete]
 interface ImGui {
 	[Static, Internal="ImGui::CreateContext"] ImGuiContext createContext();
@@ -195,14 +197,20 @@ interface ImGui {
 	[Static, Internal="ImGui::StyleColorsDark"] void styleColorsDark();
 	[Static, Internal="ImGui::DestroyContext"] void destroyContext(ImGuiContext context);
 
+	[Static, Internal="ImGui::GetID"] ImGuiID getID([Cast="char*"] ImGuiString name);
+
 	[Static, Internal="ImGui::Separator"] void separator();
+	[Static, Internal="ImGui::BeginGroup"] void beginGroup();
+	[Static, Internal="ImGui::EndGroup"] void endGroup();
+	[Static, Internal="ImGui::SameLine"] void sameLine(optional float offset_from_start_x, optional float spacing);
+	[Static, Internal="ImGui::NewLine"] void newLine();
+
 	[Static, Internal="ImGui::ColorEdit4"] bool colorEdit4([Cast="char*"] ImGuiString name, float *colors, int flags);
 
 	[Static, Internal="HImGui::text"] void text(ImGuiString text);
 	[Static, Internal="ImGui::TextUnformatted"] void textUnformatted([Cast="char*"]ImGuiString text);
 	[Static, Internal="HImGui::textColored"] void textColored(float r, float g, float b, float a, ImGuiString text);
 	[Static, Internal="HImGui::button"] bool button(ImGuiString label, optional float width, optional float height);
-	[Static, Internal="ImGui::NewLine"] void newLine();
 
 	[Static, Internal="HImGui::begin"] bool begin(ImGuiString label, optional int flags);
 	[Static, Internal="HImGui::setNextWindowPos"] void setNextWindowPos(float x, float y, optional int flags);
@@ -221,8 +229,16 @@ interface ImGui {
 	[Static, Internal="ImGui::BeginTabItem"] bool beginTabItem([Cast="char*"]ImGuiString label);
 	[Static, Internal="ImGui::EndTabItem"] void endTabItem();
 
+	[Static, Internal="ImGui::BeginItemTooltip"] bool beginItemTooltip();
+	[Static, Internal="ImGui::BeginTooltip"] bool beginTooltip();
+	[Static, Internal="ImGui::EndTooltip"] void endTooltip();
+	[Static, Internal="HImGui::setTooltip"] void setTooltip(ImGuiString text);
 
 	[Static, Internal="ImGui::PlotLines"] void plotLines([Cast="char*"]ImGuiString label, float *samples, int numSamples);
+
+
+	[Static, Internal="ImGui::DockSpace"] ImGuiID dockSpace(ImGuiID id);
+	[Static, Internal="ImGui::SetNextWindowDockID"] void setNextWindowDockID(ImGuiID id);
 };
 
 [NoDelete]
