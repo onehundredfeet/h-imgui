@@ -1,0 +1,24 @@
+<xml>
+   <set name="IMGUI_ROOT" value="${IMGUI_IDL_DIR}/../../ext/imgui"/>
+   <set name="IMPLOT_ROOT" value="${IMGUI_IDL_DIR}/../../ext/implot"/>
+   <set name="IMGUI_SRC_DIR" value="${IMGUI_IDL_DIR}/../../src"/>
+
+   <cppflag value="-I${IMGUI_SRC_DIR}"/>
+   <cppflag value="-I${IMGUI_IDL_DIR}/../../ext/netImgui/Code/Client"/>
+   <cppflag value="-I${IMGUI_ROOT}"/>
+   <cppflag value="-I${IMPLOT_ROOT}"/>
+   
+   <files id="imgui_lib">
+      <file name="${IMGUI_ROOT}/imgui.cpp" /> 
+      <file name="${IMGUI_ROOT}/imgui_draw.cpp" /> 
+      <file name="${IMGUI_ROOT}/imgui_widgets.cpp" /> 
+      <file name="${IMGUI_ROOT}/imgui_tables.cpp" /> 
+      <file name="${IMPLOT_ROOT}/implot.cpp" /> 
+      <file name="${IMPLOT_ROOT}/implot_items.cpp" /> 
+      <file name="${IMGUI_SRC_DIR}/netguiimpl.cpp" />
+   </files>
+   <target id="haxe">
+      <files id="imgui_lib" />
+   </target>
+</xml>
+

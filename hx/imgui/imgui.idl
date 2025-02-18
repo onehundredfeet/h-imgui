@@ -1,0 +1,253 @@
+typedef ImGuiString char*;
+
+[Prefix="ImGuiColorEditFlags_"]
+enum ImGuiColorEditFlags
+{
+	None,
+	NoAlpha,
+	NoPicker,
+	NoOptions,
+	NoSmallPreview,
+	NoInputs,
+	NoTooltip,
+	NoLabel,
+	NoSidePreview,
+	NoDragDrop,
+	NoBorder,
+	AlphaBar,
+	AlphaPreview,
+	AlphaPreviewHalf,
+	HDR,
+	DisplayRGB,
+	DisplayHSV,
+	DisplayHex,
+	Uint8,
+	Float,
+	PickerHueBar,
+	PickerHueWheel,
+	InputRGB,
+	InputHSV,
+	DefaultOptions_,
+	DisplayMask_,
+	DataTypeMask_,
+	PickerMask_,
+	InputMask_
+};
+
+[Internal="ImGuiWindowFlags_", Prefix="ImGuiWindowFlags_"]
+enum ImGuiWindowFlags
+{
+	None,
+	NoTitleBar,
+	NoResize,
+	NoMove,
+	NoScrollbar,
+	NoScrollWithMouse,
+	NoCollapse,
+	AlwaysAutoResize,
+	NoBackground,
+	NoSavedSettings,
+	NoMouseInputs,
+	MenuBar,
+	HorizontalScrollbar,
+	NoFocusOnAppearing,
+	NoBringToFrontOnFocus,
+	AlwaysVerticalScrollbar,
+	AlwaysHorizontalScrollbar,
+	NoNavInputs,
+	NoNavFocus,
+	UnsavedDocument,
+	NoNav,
+	NoDecoration,
+	NoInputs,
+	NoDocking
+};
+
+[Prefix="ImGuiConfigFlags_"]
+enum ImGuiConfigFlags
+{
+	None,
+	NavEnableKeyboard,
+	NavEnableGamepad,
+	NavEnableSetMousePos,
+	NavNoCaptureKeyboard,
+	NoMouse,
+	NoMouseCursorChange,
+	DockingEnable,
+	ViewportsEnable,
+	DpiEnableScaleViewports,
+	DpiEnableScaleFonts,
+	IsSRGB,
+	IsTouchScreen
+};
+
+
+// Plot styling variables.
+[Prefix="ImPlotStyleVar_"]
+enum ImPlotStyleVar {
+	LineWeight,         
+	Marker,             
+	MarkerSize,         
+	MarkerWeight,       
+	FillAlpha,          
+	ErrorBarSize,       
+	ErrorBarWeight,     
+	DigitalBitHeight,   
+	DigitalBitGap,      
+	PlotBorderSize,    
+	MinorAlpha,        
+	MajorTickLen,      
+	MinorTickLen,      
+	MajorTickSize,     
+	MinorTickSize,     
+	MajorGridSize,     
+	MinorGridSize,     
+	PlotPadding,        
+	LabelPadding,       
+	LegendPadding,     
+	LegendInnerPadding,
+	LegendSpacing,     
+	MousePosPadding,   
+	AnnotationPadding, 
+	FitPadding,         
+	PlotDefaultSize,    
+	PlotMinSize      
+};
+
+
+object StringCache {
+	StringCache new();
+	ImGuiString cache( String string );
+	void free( ImGuiString string );
+};
+
+object StringBuffer {
+	StringBuffer new(int bufferSize);
+	ImGuiString append(String string);
+	ImGuiString set(String string);
+	void reset();
+};
+
+object ImGuiContext {
+
+};
+
+object ImPlotContext {
+
+};
+
+namespace ImPlot {
+	[Internal="ImPlot::BeginPlot"] bool beginPlot([Cast="char*"]ImGuiString text);
+	[Internal="ImPlot::EndPlot"] void endPlot();
+	
+	[Internal="ImPlot::PlotBars"] void plotBarsS([Cast="char*"]ImGuiString label, float *bar_data, int data_count);
+	[Internal="ImPlot::PlotBars"] void plotBarsF([Cast="char*"]ImGuiString label, double *bar_data, int data_count);
+	[Internal="ImPlot::PlotBars"] void plotBarsI([Cast="char*"]ImGuiString label, int *bar_data, int data_count);
+
+	[Internal="ImPlot::PlotLine"] void plotLineS([Cast="char*"]ImGuiString label, float *data, int data_count, optional double xstart, optional int flags, optional int offset);
+	[Internal="ImPlot::PlotLine"] void plotLineXYS([Cast="char*"]ImGuiString label, float *data_x, float *data_y, int data_count);
+	[Internal="ImPlot::PlotLine"] void plotLineF([Cast="char*"]ImGuiString label, double *data, int data_count, optional double xstart, optional int flags, optional int offset);
+	[Internal="ImPlot::PlotLine"] void plotLineXYF([Cast="char*"]ImGuiString label, double *data_x, double *data_y, int data_count);
+
+	[Internal="ImPlot::SetupAxes"]  void setupAxes([Cast="char*"]ImGuiString horizontal, [Cast="char*"]ImGuiString vertical);
+	[Internal="ImPlot::SetupAxesLimits"]  void setupAxesLimits(double x_min, double x_max, double y_min, double y_max);
+
+	[Internal="ImPlot::PlotShaded"]  void plotShadedS([Cast="char*"]ImGuiString label, float *values, int count, optional double y_ref, double xscale, double x0, optional int flags, optional int offset, optional int stride);
+	[Internal="ImPlot::PlotShaded"]  void plotShadedXYS([Cast="char*"]ImGuiString label, float *xs, float *y2, int count, optional double y_ref, optional int flags, optional int offset);
+	[Internal="ImPlot::PlotShaded"]  void plotShadedF([Cast="char*"]ImGuiString label, double *values, int count, optional double y_ref, optional double xscale, optional double x0, optional int flags, optional int offset, optional int stride);
+	[Internal="ImPlot::PlotShaded"]  void plotShadedXYF([Cast="char*"]ImGuiString label, double *xs, double *y2, int count, optional double y_ref, optional int flags, optional int offset);
+	[Internal="ImPlot::PlotShaded"]  void plotShadedXYYF([Cast="char*"]ImGuiString label, double *xs, double *y1, double *y2, int count, optional int flags, optional int offset);
+
+	[Internal="ImPlot::PushStyleVar"]  void pushStyleVar(ImPlotStyleVar styleVar, float value);
+	[Internal="ImPlot::PopStyleVar"]  void popStyleVar(ImPlotStyleVar styleVar);
+
+	[Const, Internal="ImPlot::CreateContext"] ImPlotContext *createContext();
+	[Internal="ImPlot::DestroyContext"] void destroyContext(optional ImPlotContext context);
+};
+
+object ImGuiColor {
+	ImGuiColor new();
+	attribute float r;
+	attribute float g;
+	attribute float b;
+	attribute float a;
+
+	bool colorEdit4(ImGuiString text);
+};
+
+[Internal="HImGuiIO"]
+object ImGuiIO {
+ 	void addFontDefault();
+    void buildFonts();
+    void setFontTexID(VoidPtr id);
+    void setDisplaySize(float x, float y);
+	void setConfigFlags( int flags );
+	void setConfigFlag(ImGuiConfigFlags flag);
+	int getConfigFlags();
+};
+
+typedef ImGuiID uint;
+
+namespace ImGui {
+	[Internal="ImGui::CreateContext"] ImGuiContext *createContext();
+	[Internal="HImGuiIO::getIO"] ImGuiIO *getIO();
+	[Internal="ImGui::StyleColorsDark"] void styleColorsDark();
+	[Internal="ImGui::DestroyContext"] void destroyContext(ImGuiContext context);
+
+	[Internal="ImGui::GetID"] ImGuiID getID([Cast="char*"] ImGuiString name);
+
+	[Internal="ImGui::Separator"] void separator();
+	[Internal="ImGui::BeginGroup"] void beginGroup();
+	[Internal="ImGui::EndGroup"] void endGroup();
+	[Internal="ImGui::SameLine"] void sameLine(optional float offset_from_start_x, optional float spacing);
+	[Internal="ImGui::NewLine"] void newLine();
+
+	[Internal="ImGui::ColorEdit4"] bool colorEdit4([Cast="char*"] ImGuiString name, float *colors, int flags);
+
+	[Internal="HImGui::text"] void text(ImGuiString text);
+	[Internal="ImGui::TextUnformatted"] void textUnformatted([Cast="char*"]ImGuiString text);
+	[Internal="HImGui::textColored"] void textColored(float r, float g, float b, float a, ImGuiString text);
+	[Internal="HImGui::button"] bool button(ImGuiString label, optional float width, optional float height);
+
+	[Internal="HImGui::begin"] bool begin(ImGuiString label, optional int flags);
+	[Internal="HImGui::setNextWindowPos"] void setNextWindowPos(float x, float y, optional int flags);
+	[Internal="HImGui::setNextWindowSize"] void setNextWindowSize(float x, float y, optional int flags);
+	[Internal="ImGui::End"] void end();
+	
+	[Internal="ImGui::BeginMenuBar"] bool beginMenuBar();
+	[Internal="ImGui::EndMenuBar"] void endMenuBar();
+	[Internal="ImGui::BeginMainMenuBar"] bool beginMainMenuBar();
+	[Internal="ImGui::EndMainMenuBar"] void endMainMenuBar();
+	[Internal="ImGui::BeginMenu"] bool beginMenu([Cast="char*"]ImGuiString label);
+	[Internal="ImGui::EndMenu"] void endMenu();
+
+	[Internal="ImGui::BeginTabBar"] bool beginTabBar([Cast="char*"]ImGuiString label, optional int flags);
+	[Internal="ImGui::EndTabBar"] void endTabBar();
+	[Internal="ImGui::BeginTabItem"] bool beginTabItem([Cast="char*"]ImGuiString label);
+	[Internal="ImGui::EndTabItem"] void endTabItem();
+
+	[Internal="ImGui::BeginItemTooltip"] bool beginItemTooltip();
+	[Internal="ImGui::BeginTooltip"] bool beginTooltip();
+	[Internal="ImGui::EndTooltip"] void endTooltip();
+	[Internal="HImGui::setTooltip"] void setTooltip(ImGuiString text);
+
+	[Internal="ImGui::PlotLines"] void plotLines([Cast="char*"]ImGuiString label, float *samples, int numSamples);
+
+
+	[Internal="ImGui::DockSpace"] ImGuiID dockSpace(ImGuiID id);
+	[Internal="ImGui::SetNextWindowDockID"] void setNextWindowDockID(ImGuiID id);
+};
+
+namespace NetImgui {
+	[Internal="NetImgui::Startup"] bool startup();
+	[Internal="NetImgui::ConnectToApp"] void connectToApp(String clientName, String serverHost, int serverPort);
+	[Internal="NetImgui::IsConnected"] bool isConnected();
+	[Internal="NetImgui::IsConnectionPending"] bool isConnectionPending();
+	[Internal="NetImgui::NewFrame"] bool newFrame();
+	[Internal="NetImgui::EndFrame"] void endFrame();
+	[Internal="NetImgui::Shutdown"] void shutdown();
+	[Internal="NetImguiDebug"] void enableDebug();
+};
+
+	//	[Internal="NetImgui::SendDataTexture"] void sendDataTexture();
+	//NETIMGUI_API	void				SendDataTexture(ImTextureID textureId, void* pData, uint16_t width, uint16_t height, eTexFormat format, uint32_t dataSize=0);

@@ -1,0 +1,15 @@
+--class-path test
+--library hl-idl
+--library h-imgui
+--library hvector
+--debug
+--macro idl.macros.MacroTools.hxcppInit("imgui/imgui.idl") // would be really nice to make this
+-D HXCPP_VERBOSE
+-D no-compilation
+-D IDL_DEBUG
+--cpp cpp
+--main Test
+ --next
+ --library hl-idl
+ --run idl.CMakeGenerateHXCPP 
+  cpp

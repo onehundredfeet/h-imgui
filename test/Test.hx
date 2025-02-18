@@ -1,13 +1,13 @@
 package;
 
-import imgui.Native;
+import imgui.Imgui;
 
 class Test {
-	static final stringCache = new StringCache();
+	static final stringCache = StringCachePtr.alloc();
 
 	static final S_HELLO = stringCache.cache("Hello");
 
-	static final _ts = new StringBuffer(1024 * 1024);
+	static final _ts = StringBufferPtr.alloc(1024 * 1024);
 
 	static inline function ts(str) {
 		return _ts.set(str);
@@ -38,7 +38,7 @@ class Test {
 						ImGui.setNextWindowPos(40, 40);
 						ImGui.setNextWindowSize(1080, 720);
 
-						if (ImGui.begin(S_HELLO, ImGuiWindowFlags.MenuBar.toValue())) {
+						if (ImGui.begin(S_HELLO, ImGuiWindowFlags.MenuBar.toInt())) {
                             if (ImGui.beginMenuBar()) {
                                 if (ImGui.beginMenu(ts("My Menu"))) {
                                     ImGui.text(ts("Menu Item"));

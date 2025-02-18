@@ -5,3 +5,6 @@ bin/test.hl
 imgui.hdll.dSYM
 imgui.hdll
 installed
+test/.haxelib
+test/cpp
+imgui.ini

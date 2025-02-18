@@ -1,9 +1,11 @@
-#ifndef __HL_IMGUI_H_
-#define __HL_IMGUI_H_
+#ifndef __H_IMGUI_H_
+#define __H_IMGUI_H_
 #pragma once
 
+#ifdef HL
 #include "hl-idl-helpers.hpp"
-#define NETIMGUI_IMPLEMENTATION 
+#endif
+//#define NETIMGUI_IMPLEMENTATION 
 #include <NetImgui_Api.h>
 #include <imgui.h>
 #include <implot.h>
@@ -14,7 +16,7 @@
 #include <iostream>
 #include <csignal>
 
-#define IMGUI_TRACE
+//#define IMGUI_TRACE
 
 #ifdef IMGUI_TRACE
 #include <cpptrace/cpptrace.hpp>
@@ -31,10 +33,14 @@ class StringCache {
             ::free((void *)*it);
         }
     }
-    void *cache(const char* string) {
+    char *cache(const char* string) {
+        auto x = _cache.find((char *)string);
+        if ( x != _cache.end()) {
+            return *x;
+        }
         auto *result = strdup(string);
         _cache.insert(result);
-        return (void *)result;
+        return  result;
     }
     void free(void* string) {
         if (_cache.find((char *)string) != _cache.end()) {
@@ -195,7 +201,7 @@ void signalHandler(int inSignal) {
 }
 #endif
 
-void NetImguiDebug() {
+inline void NetImguiDebug() {
 #ifdef IMGUI_TRACE
      ::signal(SIGSEGV, signalHandler);
 #endif
