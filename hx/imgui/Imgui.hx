@@ -150,8 +150,6 @@ abstract StringCache(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	public function cache(string:String):hl.BytesAccess<hl.UI8> return null;
 	@:hlNative("imgui", "StringCache_free1")
 	public function free(string:hl.BytesAccess<hl.UI8>):Void { }
-	@:hlNative("imgui", "StringCache_delete")
-	public function delete():Void { }
 }
 abstract StringBuffer(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "StringBuffer_new1")
@@ -163,16 +161,12 @@ abstract StringBuffer(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	public function set(string:String):hl.BytesAccess<hl.UI8> return null;
 	@:hlNative("imgui", "StringBuffer_reset0")
 	public function reset():Void { }
-	@:hlNative("imgui", "StringBuffer_delete")
-	public function delete():Void { }
 }
 abstract ImGuiContext(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
-	@:hlNative("imgui", "ImGuiContext_delete")
-	public function delete():Void { }
+
 }
 abstract ImPlotContext(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
-	@:hlNative("imgui", "ImPlotContext_delete")
-	public function delete():Void { }
+
 }
 abstract ImPlot(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "ImPlot_beginPlot1")
@@ -242,8 +236,6 @@ abstract ImGuiColor(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	function set_a(_v:Single):Single return 0.;
 	@:hlNative("imgui", "ImGuiColor_colorEdit41")
 	public function colorEdit4(text:hl.BytesAccess<hl.UI8>):Bool return false;
-	@:hlNative("imgui", "ImGuiColor_delete")
-	public function delete():Void { }
 }
 abstract ImGuiIO(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "ImGuiIO_addFontDefault0")
@@ -260,8 +252,6 @@ abstract ImGuiIO(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	public function setConfigFlag(flag:imgui.ImGuiConfigFlags):Void { }
 	@:hlNative("imgui", "ImGuiIO_getConfigFlags0")
 	public function getConfigFlags():Int return 0;
-	@:hlNative("imgui", "ImGuiIO_delete")
-	public function delete():Void { }
 }
 abstract ImGui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "ImGui_createContext0")
@@ -359,7 +349,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 #end
 #if cpp
 
-@:native("ImGuiColorEditFlags") @:unreflective @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiColorEditFlags(Int) {
+@:native("ImGuiColorEditFlags") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiColorEditFlags(Int) {
 	@:native("ImGuiColorEditFlags::ImGuiColorEditFlags_None")
 	var None;
 	@:native("ImGuiColorEditFlags::ImGuiColorEditFlags_NoAlpha")
@@ -455,7 +445,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	}
 	public inline function toInt():Int return this;
 }
-@:native("ImGuiWindowFlags_") @:unreflective @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiWindowFlags(Int) {
+@:native("ImGuiWindowFlags_") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiWindowFlags(Int) {
 	@:native("ImGuiWindowFlags_::ImGuiWindowFlags_None")
 	var None;
 	@:native("ImGuiWindowFlags_::ImGuiWindowFlags_NoTitleBar")
@@ -536,7 +526,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	}
 	public inline function toInt():Int return this;
 }
-@:native("ImGuiConfigFlags") @:unreflective @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiConfigFlags(Int) {
+@:native("ImGuiConfigFlags") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiConfigFlags(Int) {
 	@:native("ImGuiConfigFlags::ImGuiConfigFlags_None")
 	var None;
 	@:native("ImGuiConfigFlags::ImGuiConfigFlags_NavEnableKeyboard")
@@ -584,7 +574,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	}
 	public inline function toInt():Int return this;
 }
-@:native("ImPlotStyleVar") @:unreflective @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImPlotStyleVar(Int) {
+@:native("ImPlotStyleVar") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImPlotStyleVar(Int) {
 	@:native("ImPlotStyleVar::ImPlotStyleVar_LineWeight")
 	var LineWeight;
 	@:native("ImPlotStyleVar::ImPlotStyleVar_Marker")
@@ -674,207 +664,203 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	}
 	public inline function toInt():Int return this;
 }
-@:native("StringCache") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringCache {
-	public function cache(string:String):cpp.Pointer<cpp.Char>;
-	public function free(string:cpp.Pointer<cpp.Char>):Void;
-	public function delete():Void;
+@:native("StringCache") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringCache {
+	public extern function cache(string:String):cpp.Pointer<cpp.Char>;
+	public extern function free(string:cpp.Pointer<cpp.Char>):Void;
 	@:native("StringCache")
 	public static function make():StringCache;
 }
 @:forward @:forwardStatics abstract StringCachePtr(cpp.Star<imgui.StringCache>) from cpp.Star<imgui.StringCache> to cpp.Star<imgui.StringCache> {
 	@:native("new StringCache")
-	public static function alloc():imgui.StringCachePtr return null;
+	public static extern function alloc():imgui.StringCachePtr;
 	@:native("delete ")
-	public function free():Void { }
+	public extern function free():Void;
 }
-@:native("StringBuffer") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringBuffer {
-	public function append(string:String):cpp.Pointer<cpp.Char>;
-	public function set(string:String):cpp.Pointer<cpp.Char>;
-	public function reset():Void;
-	public function delete():Void;
+@:native("StringBuffer") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringBuffer {
+	public extern function append(string:String):cpp.Pointer<cpp.Char>;
+	public extern function set(string:String):cpp.Pointer<cpp.Char>;
+	public extern function reset():Void;
 	@:native("StringBuffer")
 	public static function make(bufferSize:Int):StringBuffer;
 }
 @:forward @:forwardStatics abstract StringBufferPtr(cpp.Star<imgui.StringBuffer>) from cpp.Star<imgui.StringBuffer> to cpp.Star<imgui.StringBuffer> {
 	@:native("new StringBuffer")
-	public static function alloc(bufferSize:Int):imgui.StringBufferPtr return null;
+	public static extern function alloc(bufferSize:Int):imgui.StringBufferPtr;
 	@:native("delete ")
-	public function free():Void { }
+	public extern function free():Void;
 }
-@:native("ImGuiContext") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiContext {
-	public function delete():Void;
+@:native("ImGuiContext") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiContext {
+
 }
 @:forward @:forwardStatics abstract ImGuiContextPtr(cpp.Star<imgui.ImGuiContext>) from cpp.Star<imgui.ImGuiContext> to cpp.Star<imgui.ImGuiContext> {
 
 }
-@:native("ImPlotContext") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlotContext {
-	public function delete():Void;
+@:native("ImPlotContext") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlotContext {
+
 }
 @:forward @:forwardStatics abstract ImPlotContextPtr(cpp.Star<imgui.ImPlotContext>) from cpp.Star<imgui.ImPlotContext> to cpp.Star<imgui.ImPlotContext> {
 
 }
-@:native("ImPlot") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlot {
+@:native("ImPlot") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlot {
 	@:native("ImPlot::BeginPlot")
-	static public function beginPlot(text:cpp.Pointer<cpp.Char>):Bool;
+	static public extern function beginPlot(text:cpp.Pointer<cpp.Char>):Bool;
 	@:native("ImPlot::EndPlot")
-	static public function endPlot():Void;
+	static public extern function endPlot():Void;
 	@:native("ImPlot::PlotBars")
-	static public function plotBarsS(label:cpp.Pointer<cpp.Char>, bar_data:cpp.Pointer<Single>, data_count:Int):Void;
+	static public extern function plotBarsS(label:cpp.Pointer<cpp.Char>, bar_data:cpp.Pointer<Single>, data_count:Int):Void;
 	@:native("ImPlot::PlotBars")
-	static public function plotBarsF(label:cpp.Pointer<cpp.Char>, bar_data:cpp.Pointer<Float>, data_count:Int):Void;
+	static public extern function plotBarsF(label:cpp.Pointer<cpp.Char>, bar_data:cpp.Pointer<Float>, data_count:Int):Void;
 	@:native("ImPlot::PlotBars")
-	static public function plotBarsI(label:cpp.Pointer<cpp.Char>, bar_data:cpp.Pointer<Int>, data_count:Int):Void;
+	static public extern function plotBarsI(label:cpp.Pointer<cpp.Char>, bar_data:cpp.Pointer<Int>, data_count:Int):Void;
 	@:native("ImPlot::PlotLine")
-	static public function plotLineS(label:cpp.Pointer<cpp.Char>, data:cpp.Pointer<Single>, data_count:Int, ?xstart:Float, ?flags:Int, ?offset:Int):Void;
+	static public extern function plotLineS(label:cpp.Pointer<cpp.Char>, data:cpp.Pointer<Single>, data_count:Int, ?xstart:Float, ?flags:Int, ?offset:Int):Void;
 	@:native("ImPlot::PlotLine")
-	static public function plotLineXYS(label:cpp.Pointer<cpp.Char>, data_x:cpp.Pointer<Single>, data_y:cpp.Pointer<Single>, data_count:Int):Void;
+	static public extern function plotLineXYS(label:cpp.Pointer<cpp.Char>, data_x:cpp.Pointer<Single>, data_y:cpp.Pointer<Single>, data_count:Int):Void;
 	@:native("ImPlot::PlotLine")
-	static public function plotLineF(label:cpp.Pointer<cpp.Char>, data:cpp.Pointer<Float>, data_count:Int, ?xstart:Float, ?flags:Int, ?offset:Int):Void;
+	static public extern function plotLineF(label:cpp.Pointer<cpp.Char>, data:cpp.Pointer<Float>, data_count:Int, ?xstart:Float, ?flags:Int, ?offset:Int):Void;
 	@:native("ImPlot::PlotLine")
-	static public function plotLineXYF(label:cpp.Pointer<cpp.Char>, data_x:cpp.Pointer<Float>, data_y:cpp.Pointer<Float>, data_count:Int):Void;
+	static public extern function plotLineXYF(label:cpp.Pointer<cpp.Char>, data_x:cpp.Pointer<Float>, data_y:cpp.Pointer<Float>, data_count:Int):Void;
 	@:native("ImPlot::SetupAxes")
-	static public function setupAxes(horizontal:cpp.Pointer<cpp.Char>, vertical:cpp.Pointer<cpp.Char>):Void;
+	static public extern function setupAxes(horizontal:cpp.Pointer<cpp.Char>, vertical:cpp.Pointer<cpp.Char>):Void;
 	@:native("ImPlot::SetupAxesLimits")
-	static public function setupAxesLimits(x_min:Float, x_max:Float, y_min:Float, y_max:Float):Void;
+	static public extern function setupAxesLimits(x_min:Float, x_max:Float, y_min:Float, y_max:Float):Void;
 	@:native("ImPlot::PlotShaded")
-	static public function plotShadedS(label:cpp.Pointer<cpp.Char>, values:cpp.Pointer<Single>, count:Int, ?y_ref:Float, xscale:Float, x0:Float, ?flags:Int, ?offset:Int, ?stride:Int):Void;
+	static public extern function plotShadedS(label:cpp.Pointer<cpp.Char>, values:cpp.Pointer<Single>, count:Int, ?y_ref:Float, xscale:Float, x0:Float, ?flags:Int, ?offset:Int, ?stride:Int):Void;
 	@:native("ImPlot::PlotShaded")
-	static public function plotShadedXYS(label:cpp.Pointer<cpp.Char>, xs:cpp.Pointer<Single>, y2:cpp.Pointer<Single>, count:Int, ?y_ref:Float, ?flags:Int, ?offset:Int):Void;
+	static public extern function plotShadedXYS(label:cpp.Pointer<cpp.Char>, xs:cpp.Pointer<Single>, y2:cpp.Pointer<Single>, count:Int, ?y_ref:Float, ?flags:Int, ?offset:Int):Void;
 	@:native("ImPlot::PlotShaded")
-	static public function plotShadedF(label:cpp.Pointer<cpp.Char>, values:cpp.Pointer<Float>, count:Int, ?y_ref:Float, ?xscale:Float, ?x0:Float, ?flags:Int, ?offset:Int, ?stride:Int):Void;
+	static public extern function plotShadedF(label:cpp.Pointer<cpp.Char>, values:cpp.Pointer<Float>, count:Int, ?y_ref:Float, ?xscale:Float, ?x0:Float, ?flags:Int, ?offset:Int, ?stride:Int):Void;
 	@:native("ImPlot::PlotShaded")
-	static public function plotShadedXYF(label:cpp.Pointer<cpp.Char>, xs:cpp.Pointer<Float>, y2:cpp.Pointer<Float>, count:Int, ?y_ref:Float, ?flags:Int, ?offset:Int):Void;
+	static public extern function plotShadedXYF(label:cpp.Pointer<cpp.Char>, xs:cpp.Pointer<Float>, y2:cpp.Pointer<Float>, count:Int, ?y_ref:Float, ?flags:Int, ?offset:Int):Void;
 	@:native("ImPlot::PlotShaded")
-	static public function plotShadedXYYF(label:cpp.Pointer<cpp.Char>, xs:cpp.Pointer<Float>, y1:cpp.Pointer<Float>, y2:cpp.Pointer<Float>, count:Int, ?flags:Int, ?offset:Int):Void;
+	static public extern function plotShadedXYYF(label:cpp.Pointer<cpp.Char>, xs:cpp.Pointer<Float>, y1:cpp.Pointer<Float>, y2:cpp.Pointer<Float>, count:Int, ?flags:Int, ?offset:Int):Void;
 	@:native("ImPlot::PushStyleVar")
-	static public function pushStyleVar(styleVar:imgui.ImPlotStyleVar, value:Single):Void;
+	static public extern function pushStyleVar(styleVar:imgui.ImPlotStyleVar, value:Single):Void;
 	@:native("ImPlot::PopStyleVar")
-	static public function popStyleVar(styleVar:imgui.ImPlotStyleVar):Void;
+	static public extern function popStyleVar(styleVar:imgui.ImPlotStyleVar):Void;
 	@:native("ImPlot::CreateContext")
-	static public function createContext():ImPlotContextPtr;
+	static public extern function createContext():ImPlotContextPtr;
 	@:native("ImPlot::DestroyContext")
-	static public function destroyContext(?context:ImPlotContext):Void;
+	static public extern function destroyContext(?context:ImPlotContext):Void;
 }
-@:native("ImGuiColor") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiColor {
+@:native("ImGuiColor") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiColor {
 	public var r : Single;
 	public var g : Single;
 	public var b : Single;
 	public var a : Single;
-	public function colorEdit4(text:cpp.Pointer<cpp.Char>):Bool;
-	public function delete():Void;
+	public extern function colorEdit4(text:cpp.Pointer<cpp.Char>):Bool;
 	@:native("ImGuiColor")
 	public static function make():ImGuiColor;
 }
 @:forward @:forwardStatics abstract ImGuiColorPtr(cpp.Star<imgui.ImGuiColor>) from cpp.Star<imgui.ImGuiColor> to cpp.Star<imgui.ImGuiColor> {
 	@:native("new ImGuiColor")
-	public static function alloc():imgui.ImGuiColorPtr return null;
+	public static extern function alloc():imgui.ImGuiColorPtr;
 	@:native("delete ")
-	public function free():Void { }
+	public extern function free():Void;
 }
-@:native("HImGuiIO") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiIO {
-	public function addFontDefault():Void;
-	public function buildFonts():Void;
-	public function setFontTexID(id:idl.Types.VoidPtr):Void;
-	public function setDisplaySize(x:Single, y:Single):Void;
-	public function setConfigFlags(flags:Int):Void;
-	public function setConfigFlag(flag:imgui.ImGuiConfigFlags):Void;
-	public function getConfigFlags():Int;
-	public function delete():Void;
+@:native("HImGuiIO") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiIO {
+	public extern function addFontDefault():Void;
+	public extern function buildFonts():Void;
+	public extern function setFontTexID(id:idl.Types.VoidPtr):Void;
+	public extern function setDisplaySize(x:Single, y:Single):Void;
+	public extern function setConfigFlags(flags:Int):Void;
+	public extern function setConfigFlag(flag:imgui.ImGuiConfigFlags):Void;
+	public extern function getConfigFlags():Int;
 }
 @:forward @:forwardStatics abstract ImGuiIOPtr(cpp.Star<imgui.ImGuiIO>) from cpp.Star<imgui.ImGuiIO> to cpp.Star<imgui.ImGuiIO> {
 
 }
-@:native("ImGui") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGui {
+@:native("ImGui") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGui {
 	@:native("ImGui::CreateContext")
-	static public function createContext():ImGuiContextPtr;
+	static public extern function createContext():ImGuiContextPtr;
 	@:native("HImGuiIO::getIO")
-	static public function getIO():ImGuiIOPtr;
+	static public extern function getIO():ImGuiIOPtr;
 	@:native("ImGui::StyleColorsDark")
-	static public function styleColorsDark():Void;
+	static public extern function styleColorsDark():Void;
 	@:native("ImGui::DestroyContext")
-	static public function destroyContext(context:ImGuiContext):Void;
+	static public extern function destroyContext(context:ImGuiContext):Void;
 	@:native("ImGui::GetID")
-	static public function getID(name:cpp.Pointer<cpp.Char>):Int;
+	static public extern function getID(name:cpp.Pointer<cpp.Char>):Int;
 	@:native("ImGui::Separator")
-	static public function separator():Void;
+	static public extern function separator():Void;
 	@:native("ImGui::BeginGroup")
-	static public function beginGroup():Void;
+	static public extern function beginGroup():Void;
 	@:native("ImGui::EndGroup")
-	static public function endGroup():Void;
+	static public extern function endGroup():Void;
 	@:native("ImGui::SameLine")
-	static public function sameLine(?offset_from_start_x:Single, ?spacing:Single):Void;
+	static public extern function sameLine(?offset_from_start_x:Single, ?spacing:Single):Void;
 	@:native("ImGui::NewLine")
-	static public function newLine():Void;
+	static public extern function newLine():Void;
 	@:native("ImGui::ColorEdit4")
-	static public function colorEdit4(name:cpp.Pointer<cpp.Char>, colors:cpp.Pointer<Single>, flags:Int):Bool;
+	static public extern function colorEdit4(name:cpp.Pointer<cpp.Char>, colors:cpp.Pointer<Single>, flags:Int):Bool;
 	@:native("HImGui::text")
-	static public function text(text:cpp.Pointer<cpp.Char>):Void;
+	static public extern function text(text:cpp.Pointer<cpp.Char>):Void;
 	@:native("ImGui::TextUnformatted")
-	static public function textUnformatted(text:cpp.Pointer<cpp.Char>):Void;
+	static public extern function textUnformatted(text:cpp.Pointer<cpp.Char>):Void;
 	@:native("HImGui::textColored")
-	static public function textColored(r:Single, g:Single, b:Single, a:Single, text:cpp.Pointer<cpp.Char>):Void;
+	static public extern function textColored(r:Single, g:Single, b:Single, a:Single, text:cpp.Pointer<cpp.Char>):Void;
 	@:native("HImGui::button")
-	static public function button(label:cpp.Pointer<cpp.Char>, ?width:Single, ?height:Single):Bool;
+	static public extern function button(label:cpp.Pointer<cpp.Char>, ?width:Single, ?height:Single):Bool;
 	@:native("HImGui::begin")
-	static public function begin(label:cpp.Pointer<cpp.Char>, ?flags:Int):Bool;
+	static public extern function begin(label:cpp.Pointer<cpp.Char>, ?flags:Int):Bool;
 	@:native("HImGui::setNextWindowPos")
-	static public function setNextWindowPos(x:Single, y:Single, ?flags:Int):Void;
+	static public extern function setNextWindowPos(x:Single, y:Single, ?flags:Int):Void;
 	@:native("HImGui::setNextWindowSize")
-	static public function setNextWindowSize(x:Single, y:Single, ?flags:Int):Void;
+	static public extern function setNextWindowSize(x:Single, y:Single, ?flags:Int):Void;
 	@:native("ImGui::End")
-	static public function end():Void;
+	static public extern function end():Void;
 	@:native("ImGui::BeginMenuBar")
-	static public function beginMenuBar():Bool;
+	static public extern function beginMenuBar():Bool;
 	@:native("ImGui::EndMenuBar")
-	static public function endMenuBar():Void;
+	static public extern function endMenuBar():Void;
 	@:native("ImGui::BeginMainMenuBar")
-	static public function beginMainMenuBar():Bool;
+	static public extern function beginMainMenuBar():Bool;
 	@:native("ImGui::EndMainMenuBar")
-	static public function endMainMenuBar():Void;
+	static public extern function endMainMenuBar():Void;
 	@:native("ImGui::BeginMenu")
-	static public function beginMenu(label:cpp.Pointer<cpp.Char>):Bool;
+	static public extern function beginMenu(label:cpp.Pointer<cpp.Char>):Bool;
 	@:native("ImGui::EndMenu")
-	static public function endMenu():Void;
+	static public extern function endMenu():Void;
 	@:native("ImGui::BeginTabBar")
-	static public function beginTabBar(label:cpp.Pointer<cpp.Char>, ?flags:Int):Bool;
+	static public extern function beginTabBar(label:cpp.Pointer<cpp.Char>, ?flags:Int):Bool;
 	@:native("ImGui::EndTabBar")
-	static public function endTabBar():Void;
+	static public extern function endTabBar():Void;
 	@:native("ImGui::BeginTabItem")
-	static public function beginTabItem(label:cpp.Pointer<cpp.Char>):Bool;
+	static public extern function beginTabItem(label:cpp.Pointer<cpp.Char>):Bool;
 	@:native("ImGui::EndTabItem")
-	static public function endTabItem():Void;
+	static public extern function endTabItem():Void;
 	@:native("ImGui::BeginItemTooltip")
-	static public function beginItemTooltip():Bool;
+	static public extern function beginItemTooltip():Bool;
 	@:native("ImGui::BeginTooltip")
-	static public function beginTooltip():Bool;
+	static public extern function beginTooltip():Bool;
 	@:native("ImGui::EndTooltip")
-	static public function endTooltip():Void;
+	static public extern function endTooltip():Void;
 	@:native("HImGui::setTooltip")
-	static public function setTooltip(text:cpp.Pointer<cpp.Char>):Void;
+	static public extern function setTooltip(text:cpp.Pointer<cpp.Char>):Void;
 	@:native("ImGui::PlotLines")
-	static public function plotLines(label:cpp.Pointer<cpp.Char>, samples:cpp.Pointer<Single>, numSamples:Int):Void;
+	static public extern function plotLines(label:cpp.Pointer<cpp.Char>, samples:cpp.Pointer<Single>, numSamples:Int):Void;
 	@:native("ImGui::DockSpace")
-	static public function dockSpace(id:Int):Int;
+	static public extern function dockSpace(id:Int):Int;
 	@:native("ImGui::SetNextWindowDockID")
-	static public function setNextWindowDockID(id:Int):Void;
+	static public extern function setNextWindowDockID(id:Int):Void;
 }
-@:native("NetImgui") @:structAccess @:unreflective @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class NetImgui {
+@:native("NetImgui") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class NetImgui {
 	@:native("NetImgui::Startup")
-	static public function startup():Bool;
+	static public extern function startup():Bool;
 	@:native("NetImgui::ConnectToApp")
-	static public function connectToApp(clientName:String, serverHost:String, serverPort:Int):Void;
+	static public extern function connectToApp(clientName:String, serverHost:String, serverPort:Int):Void;
 	@:native("NetImgui::IsConnected")
-	static public function isConnected():Bool;
+	static public extern function isConnected():Bool;
 	@:native("NetImgui::IsConnectionPending")
-	static public function isConnectionPending():Bool;
+	static public extern function isConnectionPending():Bool;
 	@:native("NetImgui::NewFrame")
-	static public function newFrame():Bool;
+	static public extern function newFrame():Bool;
 	@:native("NetImgui::EndFrame")
-	static public function endFrame():Void;
+	static public extern function endFrame():Void;
 	@:native("NetImgui::Shutdown")
-	static public function shutdown():Void;
+	static public extern function shutdown():Void;
 	@:native("NetImguiDebug")
-	static public function enableDebug():Void;
+	static public extern function enableDebug():Void;
 }
 
 #end
