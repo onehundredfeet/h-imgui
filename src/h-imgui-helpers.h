@@ -173,14 +173,46 @@ class HImGui {
     static void setNextWindowSize(float x, float y, int flags = ImGuiCond_Once) {
         ImGui::SetNextWindowSize(ImVec2(x, y), flags);
     }
-    static bool begin(void *name, int flags = 0) {
-       return ImGui::Begin((char *)name, nullptr, flags );
-    }
+
 
     static void setTooltip(void * text) {
         ImGui::SetTooltip("%s", (const char *)text);
     }
 
+    static std::vector<ImGuiID> freeToggleList;
+    static ImGuiID nextToggleID;
+
+    static constexpr size_t CHUNK_SIZE = 1024;
+    struct BoolChunk {
+        bool states[CHUNK_SIZE];
+    };
+
+    static std::vector<BoolChunk *> toggleStates;
+
+    static ImGuiID AcquireToggle(bool defaultState);
+    static void ReleaseToggle(ImGuiID id);
+
+    static void MenuItem(ImGuiID toggleID) {
+        ImGui::MenuItem("Toggle", nullptr, toggleID);
+    }
+
+    static bool *getTogglePtr(ImGuiID toggleID) {
+        if (toggleID < 0 || toggleID >= freeToggleList.size()) {
+            return nullptr;
+        }
+        return &toggleStates[toggleID / CHUNK_SIZE]->states[toggleID % CHUNK_SIZE];
+    }
+
+    static bool MenuItem(const char *label, const char *shortcut, ImGuiID toggleID, bool enabled) {
+        return ImGui::MenuItem(label, shortcut, getTogglePtr(toggleID), enabled);
+    }
+
+    static bool begin(void *name, int flags = 0) {
+       return ImGui::Begin((char *)name, nullptr, flags );
+    }
+    static bool beginToggled(void *name, ImGuiID toggleID, int flags = 0) {
+       return ImGui::Begin((char *)name, getTogglePtr(toggleID), flags );
+    }
 };
 
 #ifdef IMGUI_TRACE

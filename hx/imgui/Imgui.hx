@@ -142,14 +142,62 @@ enum abstract ImPlotStyleVar(Int) {
 	@:hlNative("imgui", "ImPlotStyleVar_toValue0")
 	public function toValue():Int return 0;
 }
+enum abstract ImGuiTableFlags(Int) {
+	var None = 0;
+	var Resizable = 1;
+	var Reorderable = 2;
+	var Hideable = 3;
+	var Sortable = 4;
+	var NoSavedSettings = 5;
+	var ContextMenuInBody = 6;
+	var RowBg = 7;
+	var BordersInnerH = 8;
+	var BordersOuterH = 9;
+	var BordersInnerV = 10;
+	var BordersOuterV = 11;
+	var BordersH = 12;
+	var BordersV = 13;
+	var BordersInner = 14;
+	var BordersOuter = 15;
+	var Borders = 16;
+	var NoBordersInBody = 17;
+	var NoBordersInBodyUntilResize = 18;
+	var SizingFixedFit = 19;
+	var SizingFixedSame = 20;
+	var SizingStretchProp = 21;
+	var SizingStretchSame = 22;
+	var NoHostExtendX = 23;
+	var NoHostExtendY = 24;
+	var NoKeepColumnsVisible = 25;
+	var PreciseWidths = 26;
+	var NoClip = 27;
+	var PadOuterX = 28;
+	var NoPadOuterX = 29;
+	var NoPadInnerX = 30;
+	var ScrollX = 31;
+	var ScrollY = 32;
+	var SortMulti = 33;
+	var SortTristate = 34;
+	var HighlightHoveredColumn = 35;
+	@:hlNative("imgui", "ImGuiTableFlags_indexToValue1")
+	static public function indexToValue(index:Int):Int return 0;
+	@:hlNative("imgui", "ImGuiTableFlags_valueToIndex1")
+	static public function valueToIndex(value:Int):Int return 0;
+	@:hlNative("imgui", "ImGuiTableFlags_fromValue1")
+	static public function fromValue(value:Int):ImGuiTableFlags return 0;
+	@:hlNative("imgui", "ImGuiTableFlags_fromIndex1")
+	static public function fromIndex(index:Int):ImGuiTableFlags return 0;
+	@:hlNative("imgui", "ImGuiTableFlags_toValue0")
+	public function toValue():Int return 0;
+}
 abstract StringCache(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "StringCache_new0")
 	static function new0():imgui.StringCache return cast(0, StringCache);
 	public inline function new():imgui.StringCache return new0();
-	@:hlNative("imgui", "StringCache_cache1")
-	public function cache(string:String):hl.BytesAccess<hl.UI8> return null;
-	@:hlNative("imgui", "StringCache_free1")
-	public function free(string:hl.BytesAccess<hl.UI8>):Void { }
+	@:hlNative("imgui", "StringCache_cacheString1")
+	public function cacheString(string:String):hl.BytesAccess<hl.UI8> return null;
+	@:hlNative("imgui", "StringCache_freeString1")
+	public function freeString(string:hl.BytesAccess<hl.UI8>):Void { }
 }
 abstract StringBuffer(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "StringBuffer_new1")
@@ -264,6 +312,10 @@ abstract ImGui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public function destroyContext(context:imgui.ImGuiContext):Void { }
 	@:hlNative("imgui", "ImGui_getID1")
 	static public function getID(name:hl.BytesAccess<hl.UI8>):Int return 0;
+	@:hlNative("imgui", "ImGui_acquireToggle1")
+	static public function acquireToggle(defaultValue:Bool):Int return 0;
+	@:hlNative("imgui", "ImGui_releaseToggle1")
+	static public function releaseToggle(id:Int):Void { }
 	@:hlNative("imgui", "ImGui_separator0")
 	static public function separator():Void { }
 	@:hlNative("imgui", "ImGui_beginGroup0")
@@ -274,6 +326,12 @@ abstract ImGui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public function sameLine(?offset_from_start_x:Single, ?spacing:Single):Void { }
 	@:hlNative("imgui", "ImGui_newLine0")
 	static public function newLine():Void { }
+	@:hlNative("imgui", "ImGui_spacing0")
+	static public function spacing():Void { }
+	@:hlNative("imgui", "ImGui_indent1")
+	static public function indent(indent:Single):Void { }
+	@:hlNative("imgui", "ImGui_unindent1")
+	static public function unindent(indent:Single):Void { }
 	@:hlNative("imgui", "ImGui_colorEdit43")
 	static public function colorEdit4(name:hl.BytesAccess<hl.UI8>, colors:hl.BytesAccess<Single>, flags:Int):Bool return false;
 	@:hlNative("imgui", "ImGui_text1")
@@ -286,6 +344,8 @@ abstract ImGui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public function button(label:hl.BytesAccess<hl.UI8>, ?width:Single, ?height:Single):Bool return false;
 	@:hlNative("imgui", "ImGui_begin2")
 	static public function begin(label:hl.BytesAccess<hl.UI8>, ?flags:Int):Bool return false;
+	@:hlNative("imgui", "ImGui_beginToggled3")
+	static public function beginToggled(label:hl.BytesAccess<hl.UI8>, toggleID:Int, ?flags:Int):Bool return false;
 	@:hlNative("imgui", "ImGui_setNextWindowPos3")
 	static public function setNextWindowPos(x:Single, y:Single, ?flags:Int):Void { }
 	@:hlNative("imgui", "ImGui_setNextWindowSize3")
@@ -304,6 +364,10 @@ abstract ImGui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public function beginMenu(label:hl.BytesAccess<hl.UI8>):Bool return false;
 	@:hlNative("imgui", "ImGui_endMenu0")
 	static public function endMenu():Void { }
+	@:hlNative("imgui", "ImGui_menuItem4")
+	static public function menuItem(label:hl.BytesAccess<hl.UI8>, shortcut:hl.BytesAccess<hl.UI8>, selected:Bool, enabled:Bool):Bool return false;
+	@:hlNative("imgui", "ImGui_menuItemToggle4")
+	static public function menuItemToggle(label:hl.BytesAccess<hl.UI8>, shortcut:hl.BytesAccess<hl.UI8>, toggleID:Int, enabled:Bool):Bool return false;
 	@:hlNative("imgui", "ImGui_beginTabBar2")
 	static public function beginTabBar(label:hl.BytesAccess<hl.UI8>, ?flags:Int):Bool return false;
 	@:hlNative("imgui", "ImGui_endTabBar0")
@@ -326,6 +390,26 @@ abstract ImGui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public function dockSpace(id:Int):Int return 0;
 	@:hlNative("imgui", "ImGui_setNextWindowDockID1")
 	static public function setNextWindowDockID(id:Int):Void { }
+	@:hlNative("imgui", "ImGui_collapsingHeader1")
+	static public function collapsingHeader(label:hl.BytesAccess<hl.UI8>):Bool return false;
+	@:hlNative("imgui", "ImGui_beginTable3")
+	static public function beginTable(label:hl.BytesAccess<hl.UI8>, columnCount:Int, ?flags:Int):Bool return false;
+	@:hlNative("imgui", "ImGui_endTable0")
+	static public function endTable():Void { }
+	@:hlNative("imgui", "ImGui_tableSetupScrollFreeze2")
+	static public function tableSetupScrollFreeze(cols:Int, rows:Int):Void { }
+	@:hlNative("imgui", "ImGui_tableSetupColumn1")
+	static public function tableSetupColumn(label:hl.BytesAccess<hl.UI8>):Void { }
+	@:hlNative("imgui", "ImGui_tableHeadersRow0")
+	static public function tableHeadersRow():Void { }
+	@:hlNative("imgui", "ImGui_tableAngledHeadersRow0")
+	static public function tableAngledHeadersRow():Void { }
+	@:hlNative("imgui", "ImGui_tableNextRow0")
+	static public function tableNextRow():Void { }
+	@:hlNative("imgui", "ImGui_tableNextColumn0")
+	static public function tableNextColumn():Bool return false;
+	@:hlNative("imgui", "ImGui_tableSetColumnIndex1")
+	static public function tableSetColumnIndex(columnIndex:Int):Bool return false;
 }
 abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:hlNative("imgui", "NetImgui_startup0")
@@ -443,7 +527,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 			default:"Unknown ImGuiColorEditFlags";
 		};
 	}
-	public inline function toInt():Int return this;
+	public inline function toInt():Int return cast this;
 }
 @:native("ImGuiWindowFlags_") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiWindowFlags(Int) {
 	@:native("ImGuiWindowFlags_::ImGuiWindowFlags_None")
@@ -524,7 +608,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 			default:"Unknown ImGuiWindowFlags";
 		};
 	}
-	public inline function toInt():Int return this;
+	public inline function toInt():Int return cast this;
 }
 @:native("ImGuiConfigFlags") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiConfigFlags(Int) {
 	@:native("ImGuiConfigFlags::ImGuiConfigFlags_None")
@@ -572,7 +656,7 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 			default:"Unknown ImGuiConfigFlags";
 		};
 	}
-	public inline function toInt():Int return this;
+	public inline function toInt():Int return cast this;
 }
 @:native("ImPlotStyleVar") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImPlotStyleVar(Int) {
 	@:native("ImPlotStyleVar::ImPlotStyleVar_LineWeight")
@@ -662,46 +746,180 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 			default:"Unknown ImPlotStyleVar";
 		};
 	}
-	public inline function toInt():Int return this;
+	public inline function toInt():Int return cast this;
 }
-@:native("StringCache") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringCache {
-	public extern function cache(string:String):cpp.Pointer<cpp.Char>;
-	public extern function free(string:cpp.Pointer<cpp.Char>):Void;
+@:native("ImGuiTableColumnFlags_") @:notNull @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern enum abstract ImGuiTableFlags(Int) {
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_None")
+	var None;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_Resizable")
+	var Resizable;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_Reorderable")
+	var Reorderable;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_Hideable")
+	var Hideable;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_Sortable")
+	var Sortable;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoSavedSettings")
+	var NoSavedSettings;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_ContextMenuInBody")
+	var ContextMenuInBody;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_RowBg")
+	var RowBg;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersInnerH")
+	var BordersInnerH;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersOuterH")
+	var BordersOuterH;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersInnerV")
+	var BordersInnerV;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersOuterV")
+	var BordersOuterV;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersH")
+	var BordersH;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersV")
+	var BordersV;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersInner")
+	var BordersInner;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_BordersOuter")
+	var BordersOuter;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_Borders")
+	var Borders;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoBordersInBody")
+	var NoBordersInBody;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoBordersInBodyUntilResize")
+	var NoBordersInBodyUntilResize;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_SizingFixedFit")
+	var SizingFixedFit;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_SizingFixedSame")
+	var SizingFixedSame;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_SizingStretchProp")
+	var SizingStretchProp;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_SizingStretchSame")
+	var SizingStretchSame;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoHostExtendX")
+	var NoHostExtendX;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoHostExtendY")
+	var NoHostExtendY;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoKeepColumnsVisible")
+	var NoKeepColumnsVisible;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_PreciseWidths")
+	var PreciseWidths;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoClip")
+	var NoClip;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_PadOuterX")
+	var PadOuterX;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoPadOuterX")
+	var NoPadOuterX;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_NoPadInnerX")
+	var NoPadInnerX;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_ScrollX")
+	var ScrollX;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_ScrollY")
+	var ScrollY;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_SortMulti")
+	var SortMulti;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_SortTristate")
+	var SortTristate;
+	@:native("ImGuiTableColumnFlags_::ImGuiTableColumnFlags_HighlightHoveredColumn")
+	var HighlightHoveredColumn;
+	public inline function toString():String {
+		var thisAsEnum:ImGuiTableFlags = cast this;
+		return switch thisAsEnum {
+			case None:"None";
+			case Resizable:"Resizable";
+			case Reorderable:"Reorderable";
+			case Hideable:"Hideable";
+			case Sortable:"Sortable";
+			case NoSavedSettings:"NoSavedSettings";
+			case ContextMenuInBody:"ContextMenuInBody";
+			case RowBg:"RowBg";
+			case BordersInnerH:"BordersInnerH";
+			case BordersOuterH:"BordersOuterH";
+			case BordersInnerV:"BordersInnerV";
+			case BordersOuterV:"BordersOuterV";
+			case BordersH:"BordersH";
+			case BordersV:"BordersV";
+			case BordersInner:"BordersInner";
+			case BordersOuter:"BordersOuter";
+			case Borders:"Borders";
+			case NoBordersInBody:"NoBordersInBody";
+			case NoBordersInBodyUntilResize:"NoBordersInBodyUntilResize";
+			case SizingFixedFit:"SizingFixedFit";
+			case SizingFixedSame:"SizingFixedSame";
+			case SizingStretchProp:"SizingStretchProp";
+			case SizingStretchSame:"SizingStretchSame";
+			case NoHostExtendX:"NoHostExtendX";
+			case NoHostExtendY:"NoHostExtendY";
+			case NoKeepColumnsVisible:"NoKeepColumnsVisible";
+			case PreciseWidths:"PreciseWidths";
+			case NoClip:"NoClip";
+			case PadOuterX:"PadOuterX";
+			case NoPadOuterX:"NoPadOuterX";
+			case NoPadInnerX:"NoPadInnerX";
+			case ScrollX:"ScrollX";
+			case ScrollY:"ScrollY";
+			case SortMulti:"SortMulti";
+			case SortTristate:"SortTristate";
+			case HighlightHoveredColumn:"HighlightHoveredColumn";
+			default:"Unknown ImGuiTableFlags";
+		};
+	}
+	public inline function toInt():Int return cast this;
+}
+@:native("StringCache") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringCache {
+	public extern function cacheString(string:String):cpp.Pointer<cpp.Char>;
+	public extern function freeString(string:cpp.Pointer<cpp.Char>):Void;
+	public inline function asPtr():imgui.StringCachePtr return cpp.Pointer.addressOf(this);
 	@:native("StringCache")
-	public static function make():StringCache;
+	public static function make():imgui.StringCache;
 }
-@:forward @:forwardStatics abstract StringCachePtr(cpp.Star<imgui.StringCache>) from cpp.Star<imgui.StringCache> to cpp.Star<imgui.StringCache> {
+@:forward @:forwardStatics @:unreflective extern abstract StringCachePtr(cpp.Pointer<imgui.StringCache>) from cpp.Pointer<imgui.StringCache> to cpp.Pointer<imgui.StringCache> {
 	@:native("new StringCache")
 	public static extern function alloc():imgui.StringCachePtr;
 	@:native("delete ")
 	public extern function free():Void;
+	public inline function cacheString(string:String):cpp.Pointer<cpp.Char> return this.ref.cacheString(string);
+	public inline function freeString(string:cpp.Pointer<cpp.Char>):Void this.ref.freeString(string);
+	public inline function asPtr():imgui.StringCachePtr return this;
+	@:from
+	public static inline function fromCast(self:cpp.Reference<imgui.StringCache>):imgui.StringCachePtr return cpp.Pointer.addressOf(self);
 }
-@:native("StringBuffer") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringBuffer {
+@:native("StringBuffer") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class StringBuffer {
 	public extern function append(string:String):cpp.Pointer<cpp.Char>;
 	public extern function set(string:String):cpp.Pointer<cpp.Char>;
 	public extern function reset():Void;
+	public inline function asPtr():imgui.StringBufferPtr return cpp.Pointer.addressOf(this);
 	@:native("StringBuffer")
-	public static function make(bufferSize:Int):StringBuffer;
+	public static function make(bufferSize:Int):imgui.StringBuffer;
 }
-@:forward @:forwardStatics abstract StringBufferPtr(cpp.Star<imgui.StringBuffer>) from cpp.Star<imgui.StringBuffer> to cpp.Star<imgui.StringBuffer> {
+@:forward @:forwardStatics @:unreflective extern abstract StringBufferPtr(cpp.Pointer<imgui.StringBuffer>) from cpp.Pointer<imgui.StringBuffer> to cpp.Pointer<imgui.StringBuffer> {
 	@:native("new StringBuffer")
 	public static extern function alloc(bufferSize:Int):imgui.StringBufferPtr;
 	@:native("delete ")
 	public extern function free():Void;
+	public inline function append(string:String):cpp.Pointer<cpp.Char> return this.ref.append(string);
+	public inline function set(string:String):cpp.Pointer<cpp.Char> return this.ref.set(string);
+	public inline function reset():Void this.ref.reset();
+	public inline function asPtr():imgui.StringBufferPtr return this;
+	@:from
+	public static inline function fromCast(self:cpp.Reference<imgui.StringBuffer>):imgui.StringBufferPtr return cpp.Pointer.addressOf(self);
 }
-@:native("ImGuiContext") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiContext {
-
+@:native("ImGuiContext") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiContext {
+	public inline function asPtr():imgui.ImGuiContextPtr return cpp.Pointer.addressOf(this);
 }
-@:forward @:forwardStatics abstract ImGuiContextPtr(cpp.Star<imgui.ImGuiContext>) from cpp.Star<imgui.ImGuiContext> to cpp.Star<imgui.ImGuiContext> {
-
+@:forward @:forwardStatics @:unreflective extern abstract ImGuiContextPtr(cpp.Pointer<imgui.ImGuiContext>) from cpp.Pointer<imgui.ImGuiContext> to cpp.Pointer<imgui.ImGuiContext> {
+	public inline function asPtr():imgui.ImGuiContextPtr return this;
+	@:from
+	public static inline function fromCast(self:cpp.Reference<imgui.ImGuiContext>):imgui.ImGuiContextPtr return cpp.Pointer.addressOf(self);
 }
-@:native("ImPlotContext") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlotContext {
-
+@:native("ImPlotContext") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlotContext {
+	public inline function asPtr():imgui.ImPlotContextPtr return cpp.Pointer.addressOf(this);
 }
-@:forward @:forwardStatics abstract ImPlotContextPtr(cpp.Star<imgui.ImPlotContext>) from cpp.Star<imgui.ImPlotContext> to cpp.Star<imgui.ImPlotContext> {
-
+@:forward @:forwardStatics @:unreflective extern abstract ImPlotContextPtr(cpp.Pointer<imgui.ImPlotContext>) from cpp.Pointer<imgui.ImPlotContext> to cpp.Pointer<imgui.ImPlotContext> {
+	public inline function asPtr():imgui.ImPlotContextPtr return this;
+	@:from
+	public static inline function fromCast(self:cpp.Reference<imgui.ImPlotContext>):imgui.ImPlotContextPtr return cpp.Pointer.addressOf(self);
 }
-@:native("ImPlot") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlot {
+@:native("ImPlot") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImPlot {
 	@:native("ImPlot::BeginPlot")
 	static public extern function beginPlot(text:cpp.Pointer<cpp.Char>):Bool;
 	@:native("ImPlot::EndPlot")
@@ -743,22 +961,27 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	@:native("ImPlot::DestroyContext")
 	static public extern function destroyContext(?context:ImPlotContext):Void;
 }
-@:native("ImGuiColor") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiColor {
+@:native("ImGuiColor") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiColor {
 	public var r : Single;
 	public var g : Single;
 	public var b : Single;
 	public var a : Single;
 	public extern function colorEdit4(text:cpp.Pointer<cpp.Char>):Bool;
+	public inline function asPtr():imgui.ImGuiColorPtr return cpp.Pointer.addressOf(this);
 	@:native("ImGuiColor")
-	public static function make():ImGuiColor;
+	public static function make():imgui.ImGuiColor;
 }
-@:forward @:forwardStatics abstract ImGuiColorPtr(cpp.Star<imgui.ImGuiColor>) from cpp.Star<imgui.ImGuiColor> to cpp.Star<imgui.ImGuiColor> {
+@:forward @:forwardStatics @:unreflective extern abstract ImGuiColorPtr(cpp.Pointer<imgui.ImGuiColor>) from cpp.Pointer<imgui.ImGuiColor> to cpp.Pointer<imgui.ImGuiColor> {
 	@:native("new ImGuiColor")
 	public static extern function alloc():imgui.ImGuiColorPtr;
 	@:native("delete ")
 	public extern function free():Void;
+	public inline function colorEdit4(text:cpp.Pointer<cpp.Char>):Bool return this.ref.colorEdit4(text);
+	public inline function asPtr():imgui.ImGuiColorPtr return this;
+	@:from
+	public static inline function fromCast(self:cpp.Reference<imgui.ImGuiColor>):imgui.ImGuiColorPtr return cpp.Pointer.addressOf(self);
 }
-@:native("HImGuiIO") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiIO {
+@:native("HImGuiIO") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGuiIO {
 	public extern function addFontDefault():Void;
 	public extern function buildFonts():Void;
 	public extern function setFontTexID(id:idl.Types.VoidPtr):Void;
@@ -766,11 +989,21 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	public extern function setConfigFlags(flags:Int):Void;
 	public extern function setConfigFlag(flag:imgui.ImGuiConfigFlags):Void;
 	public extern function getConfigFlags():Int;
+	public inline function asPtr():imgui.ImGuiIOPtr return cpp.Pointer.addressOf(this);
 }
-@:forward @:forwardStatics abstract ImGuiIOPtr(cpp.Star<imgui.ImGuiIO>) from cpp.Star<imgui.ImGuiIO> to cpp.Star<imgui.ImGuiIO> {
-
+@:forward @:forwardStatics @:unreflective extern abstract ImGuiIOPtr(cpp.Pointer<imgui.ImGuiIO>) from cpp.Pointer<imgui.ImGuiIO> to cpp.Pointer<imgui.ImGuiIO> {
+	public inline function addFontDefault():Void this.ref.addFontDefault();
+	public inline function buildFonts():Void this.ref.buildFonts();
+	public inline function setFontTexID(id:idl.Types.VoidPtr):Void this.ref.setFontTexID(id);
+	public inline function setDisplaySize(x:Single, y:Single):Void this.ref.setDisplaySize(x, y);
+	public inline function setConfigFlags(flags:Int):Void this.ref.setConfigFlags(flags);
+	public inline function setConfigFlag(flag:imgui.ImGuiConfigFlags):Void this.ref.setConfigFlag(flag);
+	public inline function getConfigFlags():Int return this.ref.getConfigFlags();
+	public inline function asPtr():imgui.ImGuiIOPtr return this;
+	@:from
+	public static inline function fromCast(self:cpp.Reference<imgui.ImGuiIO>):imgui.ImGuiIOPtr return cpp.Pointer.addressOf(self);
 }
-@:native("ImGui") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGui {
+@:native("ImGui") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class ImGui {
 	@:native("ImGui::CreateContext")
 	static public extern function createContext():ImGuiContextPtr;
 	@:native("HImGuiIO::getIO")
@@ -781,6 +1014,10 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public extern function destroyContext(context:ImGuiContext):Void;
 	@:native("ImGui::GetID")
 	static public extern function getID(name:cpp.Pointer<cpp.Char>):Int;
+	@:native("HImGui::AcquireToggle")
+	static public extern function acquireToggle(defaultValue:Bool):Int;
+	@:native("HImGui::ReleaseToggle")
+	static public extern function releaseToggle(id:Int):Void;
 	@:native("ImGui::Separator")
 	static public extern function separator():Void;
 	@:native("ImGui::BeginGroup")
@@ -791,6 +1028,12 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public extern function sameLine(?offset_from_start_x:Single, ?spacing:Single):Void;
 	@:native("ImGui::NewLine")
 	static public extern function newLine():Void;
+	@:native("ImGui::Spacing")
+	static public extern function spacing():Void;
+	@:native("ImGui::Indent")
+	static public extern function indent(indent:Single):Void;
+	@:native("ImGui::Unindent")
+	static public extern function unindent(indent:Single):Void;
 	@:native("ImGui::ColorEdit4")
 	static public extern function colorEdit4(name:cpp.Pointer<cpp.Char>, colors:cpp.Pointer<Single>, flags:Int):Bool;
 	@:native("HImGui::text")
@@ -803,6 +1046,8 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public extern function button(label:cpp.Pointer<cpp.Char>, ?width:Single, ?height:Single):Bool;
 	@:native("HImGui::begin")
 	static public extern function begin(label:cpp.Pointer<cpp.Char>, ?flags:Int):Bool;
+	@:native("HImGui::beginToggled")
+	static public extern function beginToggled(label:cpp.Pointer<cpp.Char>, toggleID:Int, ?flags:Int):Bool;
 	@:native("HImGui::setNextWindowPos")
 	static public extern function setNextWindowPos(x:Single, y:Single, ?flags:Int):Void;
 	@:native("HImGui::setNextWindowSize")
@@ -821,6 +1066,10 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public extern function beginMenu(label:cpp.Pointer<cpp.Char>):Bool;
 	@:native("ImGui::EndMenu")
 	static public extern function endMenu():Void;
+	@:native("ImGui::MenuItem")
+	static public extern function menuItem(label:cpp.Pointer<cpp.Char>, shortcut:cpp.Pointer<cpp.Char>, selected:Bool, enabled:Bool):Bool;
+	@:native("HImGui::MenuItem")
+	static public extern function menuItemToggle(label:cpp.Pointer<cpp.Char>, shortcut:cpp.Pointer<cpp.Char>, toggleID:Int, enabled:Bool):Bool;
 	@:native("ImGui::BeginTabBar")
 	static public extern function beginTabBar(label:cpp.Pointer<cpp.Char>, ?flags:Int):Bool;
 	@:native("ImGui::EndTabBar")
@@ -843,8 +1092,28 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public extern function dockSpace(id:Int):Int;
 	@:native("ImGui::SetNextWindowDockID")
 	static public extern function setNextWindowDockID(id:Int):Void;
+	@:native("ImGui::CollapsingHeader")
+	static public extern function collapsingHeader(label:cpp.Pointer<cpp.Char>):Bool;
+	@:native("ImGui::BeginTable")
+	static public extern function beginTable(label:cpp.Pointer<cpp.Char>, columnCount:Int, ?flags:Int):Bool;
+	@:native("ImGui::EndTable")
+	static public extern function endTable():Void;
+	@:native("ImGui::TableSetupScrollFreeze")
+	static public extern function tableSetupScrollFreeze(cols:Int, rows:Int):Void;
+	@:native("ImGui::TableSetupColumn")
+	static public extern function tableSetupColumn(label:cpp.Pointer<cpp.Char>):Void;
+	@:native("ImGui::TableHeadersRow")
+	static public extern function tableHeadersRow():Void;
+	@:native("ImGui::TableAngledHeadersRow")
+	static public extern function tableAngledHeadersRow():Void;
+	@:native("ImGui::TableNextRow")
+	static public extern function tableNextRow():Void;
+	@:native("ImGui::TableNextColumn")
+	static public extern function tableNextColumn():Bool;
+	@:native("ImGui::TableSetColumnIndex")
+	static public extern function tableSetColumnIndex(columnIndex:Int):Bool;
 }
-@:native("NetImgui") @:structAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class NetImgui {
+@:native("NetImgui") @:structAccess @:unreflective @:nativeArrayAccess @:build(idl.macros.MacroTools.buildHXCPPIDLType("${IMGUI_IDL_DIR}/imgui.idl")) extern class NetImgui {
 	@:native("NetImgui::Startup")
 	static public extern function startup():Bool;
 	@:native("NetImgui::ConnectToApp")
@@ -861,6 +1130,43 @@ abstract NetImgui(idl.Types.Ref) from idl.Types.Ref to idl.Types.Ref {
 	static public extern function shutdown():Void;
 	@:native("NetImguiDebug")
 	static public extern function enableDebug():Void;
+}
+
+#end
+#if macro
+
+enum abstract ImGuiColorEditFlags(Int) {
+
+}
+enum abstract ImGuiWindowFlags(Int) {
+
+}
+enum abstract ImGuiConfigFlags(Int) {
+
+}
+enum abstract ImPlotStyleVar(Int) {
+
+}
+enum abstract ImGuiTableFlags(Int) {
+
+}
+class StringCache {
+	public static function make():imgui.StringCache return null;
+}
+class StringBuffer {
+	public static function make():imgui.StringBuffer return null;
+}
+class ImGuiContext {
+
+}
+class ImPlotContext {
+
+}
+class ImGuiColor {
+	public static function make():imgui.ImGuiColor return null;
+}
+class ImGuiIO {
+
 }
 
 #end

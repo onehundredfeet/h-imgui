@@ -16,6 +16,7 @@
       <file name="${IMPLOT_ROOT}/implot.cpp" /> 
       <file name="${IMPLOT_ROOT}/implot_items.cpp" /> 
       <file name="${IMGUI_SRC_DIR}/netguiimpl.cpp" />
+      <file name="${IMGUI_SRC_DIR}/h-imgui-helpers.cpp" />
    </files>
    <target id="haxe">
       <files id="imgui_lib" />
